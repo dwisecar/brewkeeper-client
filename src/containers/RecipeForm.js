@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import MultiInputs from "../components/MultiInputs";
-import HopInputs from "../components/HopInputs"
+import MultiInputs from "../components/forms/MultiInputs";
+import HopInputs from "../components/forms/HopInputs"
 
 function RecipeForm({user}){
   
