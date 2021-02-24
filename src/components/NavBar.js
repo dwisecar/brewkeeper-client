@@ -2,9 +2,9 @@ import React from "react";
 
 import {Navbar, Nav, NavDropdown, Form, FormControl} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
-import EditUser from "./EditUser";
+import SignIn from "./forms/SignIn";
+import SignUp from "./forms/SignUp";
+import EditUser from "./forms/EditUser";
 import { useHistory } from "react-router-dom";
 //import { GoSearch } from "react-icons/go";
 

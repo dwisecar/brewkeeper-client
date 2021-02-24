@@ -2,21 +2,34 @@ import React from 'react'
 import NavBar from "./components/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createStore } from 'redux';
 import RecipeForm from './containers/RecipeForm';
+import AllRecipes from "./containers/AllRecipes";
+import Profile from './containers/Profile'
+import Ingredients from './containers/Ingredients';
+import LowerNavBar from './components/LowerNavBar';
+import Recipe from './containers/Recipe'
+import Brewer from './containers/Brewer'
+import Brewers from './containers/Brewers'
+import Styles from './containers/Styles'
+import NoRoute from './components/NoRoute'
 
 class App extends React.Component {
 
   state = {
     user:false,
-    recipes: []
-
+    recipes: [],
+    brewers: []
   }
 
   componentDidMount() {
     const token = localStorage.token
     token ? this.persistUser(token) : console.log("no token")
+  }
+
+  fetchRecipes = () => {
+
   }
 
   userSignIn = (e) => {
@@ -157,7 +170,30 @@ class App extends React.Component {
       <Router>
         <div className='main'>
           <NavBar user={this.state.user} signIn={this.userSignIn} signUp={this.userSignUp} signOut={this.handleLogout} handleEdit={this.handleEdit} handleSearch={this.handleSearch}/>
-          <RecipeForm user={this.state.user}/>
+          <LowerNavBar user={this.state.user}/>
+          <Switch>
+            <Route exact path="/" component={AllRecipes} />
+            <Route path="/profile" render={() => (<Profile user={this.state.user}/>)}/>
+            <Route exact path="/brewers" component={Brewers}/>
+            <Route path="/styles" component={Styles}/>
+            <Route path="/ingredients" component={Ingredients}/>
+            <Route path="/recipes/new" render={() => <RecipeForm user={this.state.user}/>}/>
+
+            <Route path="/recipes/:slug" render={(routerProps) => {
+              let recipe = this.state.recipes.find(recipe => recipe.id === routerProps.match.params.slug)
+              return <Recipe recipe={recipe}/>
+            }}/>
+
+            <Route path="/brewers/:slug" render={(routerProps) => {
+              let brewer = this.state.brewers.find(brewer => brewer.id === routerProps.match.params.slug)
+              return <Brewer brewer={brewer}/>
+            }}/>
+
+            <Route exact path="/signout" />
+            <Route component={NoRoute}/>
+          </Switch>
+          
+          
         </div>
       </Router>
     )
