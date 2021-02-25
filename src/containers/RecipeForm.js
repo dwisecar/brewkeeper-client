@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import MultiInputs from "../components/forms/MultiInputs";
 import HopInputs from "../components/forms/HopInputs"
+import { useHistory } from "react-router-dom";
 
-function RecipeForm({user}){
+function RecipeForm({user, addNewRecipe}){
   
   const [styles, setStyles] = useState([])
   const [fermentables, setFermentables] = useState([])
@@ -18,6 +19,7 @@ function RecipeForm({user}){
   const [selectedYeasts, setSelectedYeasts] = useState([{id: 1, amount: 1}])
   const [instructions, setInstructions] = useState('')
   const [notes, setNotes] = useState('')
+  let history = useHistory();
 
   useEffect(() => {
     fetch("http://localhost:3000/styles").then(res => res.json()).then(data1 => setStyles(data1))
@@ -30,9 +32,9 @@ function RecipeForm({user}){
   const handleCreateRecipe = e => {
     e.preventDefault()
     const recipe = {
-      user: user.id,
+      user_id: user.id,
       name: recipeName,
-      batchSize: batchSize,
+      volume: parseFloat(batchSize),
       style: selectedStyle,
       fermentables: selectedFermentables,
       hops: selectedHops, 
@@ -48,7 +50,10 @@ function RecipeForm({user}){
       },
       body: JSON.stringify(recipe)
     }).then(res => res.json())
-    .then(console.log)
+    .then(recipe => {
+      addNewRecipe(recipe)
+      history.push(`/recipes/${recipe.id}`)
+    })
   }
   
   return (

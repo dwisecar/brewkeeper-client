@@ -44,6 +44,10 @@ const LowerNavBar = ({
               <LinkContainer to="/profile">
                 <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
+
+              <LinkContainer to="/recipes/new">
+                <Nav.Link>Create Recipe</Nav.Link>
+              </LinkContainer>
             </>) : null}
 
         </Nav>
