@@ -18,18 +18,18 @@ import NoRoute from './components/NoRoute'
 class App extends React.Component {
 
   state = {
-    user:false,
+    user: false,
     recipes: [],
     brewers: []
   }
 
   componentDidMount() {
     const token = localStorage.token
-    token ? this.persistUser(token) : console.log("no token")
+    token ? this.persistUser(token) : this.fetchRecipes()
   }
 
   fetchRecipes = () => {
-
+    fetch("http://localhost:3000/recipes").then(res => res.json()).then(data => this.setState({recipes: data}))
   }
 
   userSignIn = (e) => {
@@ -56,8 +56,7 @@ class App extends React.Component {
               user: user.user,
             },
             () => {
-              //fetch recipies
-              console.log(user, 'signed in the house')
+              this.fetchRecipes()
             }
           );
           localStorage.setItem("token", user.jwt)
@@ -89,8 +88,7 @@ class App extends React.Component {
               user: user.user,
             },
             () => {
-              console.log(user, 'signed up in the house')
-              //fetch recipies
+              this.fetchRecipes()
             }
           );
           localStorage.setItem("token", user.jwt);
@@ -113,8 +111,7 @@ class App extends React.Component {
             user: user,
           },
           () => {
-            console.log(user, 'in the house')
-            // fetch recipies
+            this.fetchRecipes()
           }
         )
       )
@@ -164,6 +161,10 @@ class App extends React.Component {
     this.setState({ user: false })
   }
 
+  addNewRecipe = recipe => {
+    this.setState({recipes: [...this.state.recipes, recipe]})
+  }
+
 
   render() {
     return(
@@ -172,20 +173,20 @@ class App extends React.Component {
           <NavBar user={this.state.user} signIn={this.userSignIn} signUp={this.userSignUp} signOut={this.handleLogout} handleEdit={this.handleEdit} handleSearch={this.handleSearch}/>
           <LowerNavBar user={this.state.user}/>
           <Switch>
-            <Route exact path="/" component={AllRecipes} />
+            <Route exact path="/" render={() => (<AllRecipes recipes={this.state.recipes}/>)}/>
             <Route path="/profile" render={() => (<Profile user={this.state.user}/>)}/>
             <Route exact path="/brewers" component={Brewers}/>
             <Route path="/styles" component={Styles}/>
             <Route path="/ingredients" component={Ingredients}/>
-            <Route path="/recipes/new" render={() => <RecipeForm user={this.state.user}/>}/>
+            <Route path="/recipes/new" render={() => <RecipeForm user={this.state.user} addNewRecipe={this.addNewRecipe}/>}/>
 
             <Route path="/recipes/:slug" render={(routerProps) => {
-              let recipe = this.state.recipes.find(recipe => recipe.id === routerProps.match.params.slug)
-              return <Recipe recipe={recipe}/>
+              let recipe = this.state.recipes.find(recipe => recipe.id == routerProps.match.params.slug)
+              return (recipe ? <Recipe user={this.state.user} recipe={recipe}/> : null)
             }}/>
 
             <Route path="/brewers/:slug" render={(routerProps) => {
-              let brewer = this.state.brewers.find(brewer => brewer.id === routerProps.match.params.slug)
+              let brewer = this.state.brewers.find(brewer => brewer.id == routerProps.match.params.slug)
               return <Brewer brewer={brewer}/>
             }}/>
 

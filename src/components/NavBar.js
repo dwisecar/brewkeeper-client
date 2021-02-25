@@ -1,6 +1,5 @@
 import React from "react";
-
-import {Navbar, Nav, NavDropdown, Form, FormControl} from "react-bootstrap";
+import {Navbar, Nav, NavDropdown} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import SignIn from "./forms/SignIn";
 import SignUp from "./forms/SignUp";
