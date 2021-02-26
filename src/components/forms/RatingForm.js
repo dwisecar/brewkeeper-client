@@ -6,7 +6,7 @@ import 'react-rangeslider/lib/index.css'
 
 
 
-const RatingForm = ({user, recipe, addRating, editRating}) => {
+const RatingForm = ({user, recipe}) => {
 
   const [rating, setRating] = useState(0)
   const [userHasRated, setUserHasRated] = useState(false)
@@ -41,8 +41,6 @@ const RatingForm = ({user, recipe, addRating, editRating}) => {
       }).then(res => res.json())
       .then(rating => {
         setPreviousRating(rating)
-        addRating(rating)
-        window.scrollTo(0, 0)
       })
     }, 1000);
   }  
@@ -64,8 +62,6 @@ const RatingForm = ({user, recipe, addRating, editRating}) => {
       }).then(res => res.json())
       .then(rating => {
         setPreviousRating(rating)
-        editRating(rating)
-        window.scrollTo(0, 0)
       })
     }, 1000);
     

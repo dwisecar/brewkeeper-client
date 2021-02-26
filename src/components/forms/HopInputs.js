@@ -64,7 +64,8 @@ function HopInputs({selected, setSelected, items}) {
                   handleTimeChange={handleTimeChange}
                   handleBoilChange={handleBoilChange}
                   idx={idx} 
-                  items={items}/>
+                  items={items}
+                  />
               </div>
             )
           })}
