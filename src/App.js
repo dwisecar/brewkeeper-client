@@ -165,6 +165,11 @@ class App extends React.Component {
     this.setState({recipes: [...this.state.recipes, recipe]})
   }
 
+  deleteRecipe = recipe => {
+    const newRecipes = this.state.recipes.filter(r => r.id !== recipe.id) 
+    this.setState({recipes: newRecipes})
+  }
+
 
   render() {
     return(
@@ -182,7 +187,7 @@ class App extends React.Component {
 
             <Route path="/recipes/:slug" render={(routerProps) => {
               let recipe = this.state.recipes.find(recipe => recipe.id == routerProps.match.params.slug)
-              return (recipe ? <Recipe user={this.state.user} recipe={recipe}/> : null)
+              return (recipe ? <Recipe user={this.state.user} recipeId={recipe.id} deleteRecipe={this.deleteRecipe}/> : null)
             }}/>
 
             <Route path="/brewers/:slug" render={(routerProps) => {

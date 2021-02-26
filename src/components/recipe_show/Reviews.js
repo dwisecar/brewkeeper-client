@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap'
 import React, { useState } from 'react'
 
 
-const Reviews = ({reviews, user, setReviews}) => {
+const Reviews = ({reviews, user, setReviews, setReviewToEdit, handleEditClick}) => {
 
   const handleDelete = review => {
     setReviews(prevReviews => prevReviews.filter(rev => rev.id !== review.id))
@@ -15,15 +15,18 @@ const Reviews = ({reviews, user, setReviews}) => {
       }
     })
   }  
-  
 
   return(
     <div className="reviews">
       {reviews.map(review => (
         <div className="review" key={review.id}>
           <p>{review.user.username}: {review.content}</p>  
-          {review.user_id === user.id && 
-          <Button onClick={() => handleDelete(review)}>X</Button>}
+          {review.user_id === user.id && <>
+          <Button onClick={() => (
+            setReviewToEdit(review),
+            handleEditClick()
+            )}>Edit</Button>
+          <Button onClick={() => handleDelete(review)}>X</Button></>}
         </div>))}
     </div>
   )

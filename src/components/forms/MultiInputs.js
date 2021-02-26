@@ -45,7 +45,8 @@ function MultiInputs({selected, setSelected, items}) {
                   handleChange={handleChange}
                   handleAmountChange={handleAmountChange}
                   idx={idx} 
-                  items={items}/>
+                  items={items}
+                  />
               </div>
             )
           })}
