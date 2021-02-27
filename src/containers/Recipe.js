@@ -4,6 +4,7 @@ import RatingForm from '../components/forms/RatingForm'
 import ReviewForm from '../components/forms/ReviewForm'
 import Reviews from '../components/recipe_show/Reviews'
 import { useHistory, Link } from "react-router-dom";
+import Stats from '../components/recipe_show/Stats'
 
 
 const Recipe = ({recipeId, user, deleteRecipe}) => {
@@ -69,23 +70,34 @@ const Recipe = ({recipeId, user, deleteRecipe}) => {
     }).then(deleteRecipe(recipe)).then(history.push("/"))
   }  
   
+  const amountFinder = ingredient => {
+    switch (ingredient) {
+      case "":
+        
+        break;
+    
+      default:
+        break;
+    }
+  }
   
   return recipe ? (
     <div className="recipe-page">
       <h3>{recipe.name}, by {recipe.user.username}</h3>
       <h4>{recipe.styles[0].name}</h4>
+      <Stats recipe={recipe}/>
       {recipe.ratings.length !== 0 && <h5>Average Rating: {avgRating()}</h5>}
       <h5>Fermentables</h5>
       <ul className="fermentables-list">
-        {recipe.fermentables.map((f, idx) => <li key={idx}>{f.name}. SRM: {f.srm_precise}. Potential: {f.potential}. Protein: {f.protein}</li>)}
+        {recipe.recipe_fermentables.map((f, idx) => <li key={idx}>{f.fermentable.name}: {f.amount} Lbs.</li>)}
       </ul>
       <h5>Hops</h5>
       <ul className="hops-list">
-        {recipe.hops.map((f, idx) => <li key={idx}>{f.name}. Alpha Acid: {f.alpha_acid_min}. Beta acid range: {f.beta_acid_min} - {f.beta_acid_max}</li>)}
+        {recipe.recipe_hops.map((h, idx) => <li key={idx}>{h.hop.name}: {h.amount} oz.</li>)}
       </ul>
       <h5>Yeast</h5>
       <ul className="yeast-list">
-        {recipe.yeasts.map((f, idx) => <li key={idx}>{f.name}. Attenuation: {f.attenuation_min} - {f.attenuation_max}.</li>)}
+        {recipe.recipe_yeasts.map((y, idx) => <li key={idx}>{y.yeast.name}: {y.amount} pack.</li>)}
       </ul>
       <h5>Instructions</h5>
         <p>{recipe.instructions}</p>

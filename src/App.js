@@ -14,6 +14,8 @@ import Brewer from './containers/Brewer'
 import Brewers from './containers/Brewers'
 import Styles from './containers/Styles'
 import NoRoute from './components/NoRoute'
+import SideBar from './containers/SideBar';
+import { Container } from 'react-bootstrap';
 
 class App extends React.Component {
 
@@ -124,7 +126,7 @@ class App extends React.Component {
     let token = localStorage.token;
     let newUsername = e.target.username.value;
     console.log(e.target.username.value);
-    fetch(`http://localhost:3000/api/v1/editname`, {
+    fetch(`http://localhost:3000/api/v1/edit`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
@@ -177,27 +179,31 @@ class App extends React.Component {
         <div className='main'>
           <NavBar user={this.state.user} signIn={this.userSignIn} signUp={this.userSignUp} signOut={this.handleLogout} handleEdit={this.handleEdit} handleSearch={this.handleSearch}/>
           <LowerNavBar user={this.state.user}/>
-          <Switch>
-            <Route exact path="/" render={() => (<AllRecipes recipes={this.state.recipes}/>)}/>
-            <Route path="/profile" render={() => (<Profile user={this.state.user}/>)}/>
-            <Route exact path="/brewers" component={Brewers}/>
-            <Route path="/styles" component={Styles}/>
-            <Route path="/ingredients" component={Ingredients}/>
-            <Route path="/recipes/new" render={() => <RecipeForm user={this.state.user} addNewRecipe={this.addNewRecipe}/>}/>
+          <SideBar />
+          <Container >
+            <Switch>
+              <Route exact path="/" render={() => (<AllRecipes recipes={this.state.recipes}/>)}/>
+              <Route path="/profile" render={() => (<Profile user={this.state.user} recipes={this.state.recipes}/>)}/>
+              <Route exact path="/brewers" component={Brewers}/>
+              <Route path="/styles" component={Styles}/>
+              <Route path="/ingredients" component={Ingredients}/>
+              <Route path="/recipes/new" render={() => <RecipeForm user={this.state.user} addNewRecipe={this.addNewRecipe}/>}/>
 
-            <Route path="/recipes/:slug" render={(routerProps) => {
-              let recipe = this.state.recipes.find(recipe => recipe.id == routerProps.match.params.slug)
-              return (recipe ? <Recipe user={this.state.user} recipeId={recipe.id} deleteRecipe={this.deleteRecipe}/> : null)
-            }}/>
+              <Route path="/recipes/:slug" render={(routerProps) => {
+                let recipe = this.state.recipes.find(recipe => recipe.id == routerProps.match.params.slug)
+                return (recipe ? <Recipe user={this.state.user} recipeId={recipe.id} deleteRecipe={this.deleteRecipe}/> : null)
+              }}/>
 
-            <Route path="/brewers/:slug" render={(routerProps) => {
-              let brewer = this.state.brewers.find(brewer => brewer.id == routerProps.match.params.slug)
-              return <Brewer brewer={brewer}/>
-            }}/>
+              <Route path="/brewers/:slug" render={(routerProps) => {
+                let brewer = this.state.brewers.find(brewer => brewer.id == routerProps.match.params.slug)
+                return <Brewer brewer={brewer}/>
+              }}/>
 
-            <Route exact path="/signout" />
-            <Route component={NoRoute}/>
-          </Switch>
+              <Route exact path="/signout" />
+              <Route component={NoRoute}/>
+            </Switch>
+          </Container>
+          
           
           
         </div>
