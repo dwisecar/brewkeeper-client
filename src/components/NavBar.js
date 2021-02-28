@@ -5,6 +5,7 @@ import SignIn from "./forms/SignIn";
 import SignUp from "./forms/SignUp";
 import EditUser from "./forms/EditUser";
 import { useHistory } from "react-router-dom";
+import { connect, useSelector } from "react-redux";
 //import { GoSearch } from "react-icons/go";
 
 const NavBar = ({
@@ -12,22 +13,24 @@ const NavBar = ({
   signUp,
   signOut,
   handleEdit,
-  user,
   handleSearch
 }) => {
   let history = useHistory();
+  const user = useSelector(state => state.user)
 
   return (
-    <Navbar className="navbar" expand="lg" fixed="top">
-      <LinkContainer to="/">
-        <Navbar.Brand>BrewKeeper</Navbar.Brand>
-      </LinkContainer>
+    <Navbar className="navbar" expand="lg" fixed="top" >
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        <Nav className="ml-auto">
+
           <LinkContainer exact to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
+          {user ? (
+              <LinkContainer to="/profile">
+                <Nav.Link>{user.username}'s Profile</Nav.Link>
+              </LinkContainer>) : null}
           
           {user ? (
             <>
@@ -64,4 +67,10 @@ const NavBar = ({
   );
 };
 
-export default NavBar;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(NavBar)

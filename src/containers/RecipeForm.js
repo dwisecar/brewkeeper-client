@@ -4,13 +4,16 @@ import { Form, Button } from "react-bootstrap";
 import MultiInputs from "../components/forms/MultiInputs";
 import HopInputs from "../components/forms/HopInputs"
 import { useHistory } from "react-router-dom";
+import { connect, useSelector, useDispatch } from "react-redux";
 
-function RecipeForm({user, addNewRecipe}){
+function RecipeForm(){
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
+  const styles = useSelector(state => state.styles)
+  const fermentables = useSelector(state => state.fermentables)
+  const hops = useSelector(state => state.hops)
+  const yeasts = useSelector(state => state.yeasts)
   
-  const [styles, setStyles] = useState([])
-  const [fermentables, setFermentables] = useState([])
-  const [hops, setHops] = useState([])
-  const [yeasts, setYeasts] = useState([])
   const [recipeName, setRecipeName] = useState("Untitled")
   const [batchSize, setBatchSize] = useState(5.5)
   const [selectedStyle, setSelectedStyle] = useState({ id: 1 })
@@ -19,15 +22,8 @@ function RecipeForm({user, addNewRecipe}){
   const [selectedYeasts, setSelectedYeasts] = useState([{id: 1, amount: 1}])
   const [instructions, setInstructions] = useState('')
   const [notes, setNotes] = useState('')
+
   let history = useHistory();
-
-  useEffect(() => {
-    fetch("http://localhost:3000/styles").then(res => res.json()).then(data1 => setStyles(data1))
-    .then(fetch("http://localhost:3000/fermentables").then(res => res.json()).then(data2 => setFermentables(data2))
-    .then(fetch("http://localhost:3000/hops").then(res => res.json()).then(data3 => setHops(data3))
-    .then(fetch("http://localhost:3000/yeasts").then(res => res.json()).then(data4 => setYeasts(data4)))))
-  }, [])
-
 
   const handleCreateRecipe = e => {
     e.preventDefault()
@@ -51,7 +47,10 @@ function RecipeForm({user, addNewRecipe}){
       body: JSON.stringify(recipe)
     }).then(res => res.json())
     .then(recipe => {
-      addNewRecipe(recipe)
+      dispatch({
+        type: "ADD_RECIPE",
+        value: recipe
+      })
       history.push(`/recipes/${recipe.id}`)
     })
   }
@@ -84,7 +83,7 @@ function RecipeForm({user, addNewRecipe}){
           name="name"
           type="number"
           step='0.1'
-          placeholder={5.5}
+          defaultValue={5.5}
           onChange={(e) => setBatchSize(e.target.value)}
         />
       </Form.Group>
@@ -144,4 +143,16 @@ function RecipeForm({user, addNewRecipe}){
     </Form>
   )
 }
-export default RecipeForm
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    recipes: state.recipes,
+    styles: state.styles,
+    fermentables: state.fermentables,
+    hops: state.hops,
+    yeasts: state.yeasts
+  }
+}
+
+export default connect(mapStateToProps)(RecipeForm)

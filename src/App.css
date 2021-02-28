@@ -1,10 +1,32 @@
 .main {
   padding: 5%;
+  position:relative;
+}
+
+.navbar {
+  height: 70px;
+  background-color: #c7a900;
+  z-index: 1000;
+  color: wheat;
+}
+
+.sidebar-header{
+  padding: 17px;
+  font-weight: bold;
+  font-size: 18pt;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-container{
+  position: fixed;
 }
 
 .recipe-card {
   margin: 20px;
-  min-width: 200px;
+  max-width: 250px;
 }
 
 .App {
