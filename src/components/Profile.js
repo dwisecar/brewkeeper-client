@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {Container, CardDeck, Button} from "react-bootstrap";
-import BioForm from '../components/forms/BioForm';
-import RecipeCard from '../components/RecipeCard';
+import BioForm from './forms/BioForm';
+import RecipeCard from './RecipeCard';
 import { connect, useDispatch, useSelector } from 'react-redux';
 
 const Profile = () => {

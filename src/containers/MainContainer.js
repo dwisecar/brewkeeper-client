@@ -4,23 +4,29 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router-dom";
 import RecipeForm from './RecipeForm';
 import AllRecipes from "./AllRecipes";
-import Profile from './Profile'
+import Profile from '../components/Profile'
 import FermentablesDetails from './FermentablesDetails';
 import HopsDetails from "./HopsDetails"
 import YeastDetails from "./YeastDetails"
-import Recipe from './Recipe'
+import Recipe from '../components/Recipe'
 import Brewer from './Brewer'
 import Brewers from './Brewers'
 import Styles from './Styles'
 import NoRoute from '../components/NoRoute'
 import { Container } from 'react-bootstrap';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import StylesIngredients from './StylesIngredients';
 
 
 const MainContainer = props => {
 
   const user = useSelector(state => state.user)
   const recipes = useSelector(state => state.recipes)
+  const styles = useSelector(state => state.styles)
+  const fermentables = useSelector(state => state.fermentables)
+  const hops = useSelector(state => state.hops)
+  const yeasts = useSelector(state => state.yeasts)
+
 
   const [brewers, setBrewers] = useState([])
 
@@ -42,10 +48,10 @@ const MainContainer = props => {
               />
               <Route path="/profile" component={Profile}/>
               <Route exact path="/brewers" render={() => <Brewers brewers={brewers} setBrewers={setBrewers}/>}/>
-              <Route path="/styles" component={Styles}/>
-              <Route path="/fermentables" component={FermentablesDetails}/>
-              <Route path="/hops" component={HopsDetails}/>
-              <Route path="/yeast" component={YeastDetails}/>
+              <Route path="/styles" render={() => <StylesIngredients list={styles} type={"Styles"}/>}/>
+              <Route path="/fermentables" render={() => <StylesIngredients list={fermentables} type={"Fermentables"}/>}/>
+              <Route path="/hops" render={() => <StylesIngredients list={hops} type={"Hops"}/>}/>
+              <Route path="/yeast" render={() => <StylesIngredients list={yeasts} type={"Yeast"}/>}/>
               
               <Route path="/recipes/new" render={() => (
                 <RecipeForm 
@@ -75,7 +81,11 @@ const MainContainer = props => {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    recipes: state.recipes
+    recipes: state.recipes,
+    styles: state.styles,
+    fermentables: state.fermentables,
+    hops: state.hops,
+    yeasts: state.yeasts
   }
 }
 export default connect(mapStateToProps)(MainContainer)

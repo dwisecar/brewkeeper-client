@@ -184,21 +184,23 @@ function Layout() {
           toggled={toggled}
           handleToggleSidebar={handleToggleSidebar}
         />
-        <MainContainer
-          image={image}
-          toggled={toggled}
-          collapsed={collapsed}
-          rtl={rtl}
-          handleToggleSidebar={handleToggleSidebar}
-          handleCollapsedChange={handleCollapsedChange}
-          handleRtlChange={handleRtlChange}
-          handleImageChange={handleImageChange}
-          userSignIn={userSignIn} 
-          userSignUp={userSignUp} 
-          handleLogOut={handleLogout} 
-          handleEdit={handleEdit} 
-          handleLogout={handleLogout}
-          />
+        <div>
+          <MainContainer className="content-display"
+            image={image}
+            toggled={toggled}
+            collapsed={collapsed}
+            rtl={rtl}
+            handleToggleSidebar={handleToggleSidebar}
+            handleCollapsedChange={handleCollapsedChange}
+            handleRtlChange={handleRtlChange}
+            handleImageChange={handleImageChange}
+            userSignIn={userSignIn} 
+            userSignUp={userSignUp} 
+            handleLogOut={handleLogout} 
+            handleEdit={handleEdit} 
+            handleLogout={handleLogout}
+            />
+          </div>
         </div>
   )
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Container, CardDeck, Form} from "react-bootstrap";
-import BrewerCard from './BrewerCard';
+import BrewerCard from '../components/BrewerCard';
 
 class Brewers extends React.Component {
 

@@ -1,6 +1,9 @@
 .main {
-  padding: 5%;
   position:relative;
+}
+
+.main-container {
+  padding-top:90px;
 }
 
 .navbar {
@@ -27,6 +30,27 @@
 .recipe-card {
   margin: 20px;
   max-width: 250px;
+}
+
+.detail-items {
+  margin-left:auto;
+}
+
+.list-items{
+  max-width: 350px;
+  position: fixed;
+  height: 80%;
+  overflow-y: auto;
+}
+
+.list-item{
+  cursor: pointer;
+  min-width: 300px;  
+}
+
+.item-display-container{
+  position:relative;
+  margin-right: 0;
 }
 
 .App {

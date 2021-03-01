@@ -1,10 +1,10 @@
 import { Button } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
-import RatingForm from '../components/forms/RatingForm'
-import ReviewForm from '../components/forms/ReviewForm'
-import Reviews from '../components/recipe_show/Reviews'
+import RatingForm from './forms/RatingForm'
+import ReviewForm from './forms/ReviewForm'
+import Reviews from './recipe_show/Reviews'
 import { useHistory, Link } from "react-router-dom";
-import Stats from '../components/recipe_show/Stats'
+import Stats from './recipe_show/Stats'
 import { connect, useSelector, useDispatch } from "react-redux";
 
 const Recipe = ({recipeId}) => {

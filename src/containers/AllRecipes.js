@@ -25,7 +25,6 @@ const AllRecipes = ({recipes}) => {
   }
 
   function handleStyleChange(e) {
-    console.log(e.target.value)
     if (e.target.value) {
       setFilter(e.target.value) 
       
