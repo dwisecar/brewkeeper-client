@@ -1,13 +1,16 @@
 import { Button } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
-import RatingForm from '../components/forms/RatingForm'
-import ReviewForm from '../components/forms/ReviewForm'
-import Reviews from '../components/recipe_show/Reviews'
+import RatingForm from './forms/RatingForm'
+import ReviewForm from './forms/ReviewForm'
+import Reviews from './recipe_show/Reviews'
 import { useHistory, Link } from "react-router-dom";
-import Stats from '../components/recipe_show/Stats'
+import Stats from './recipe_show/Stats'
+import { connect, useSelector, useDispatch } from "react-redux";
 
+const Recipe = ({recipeId}) => {
 
-const Recipe = ({recipeId, user, deleteRecipe}) => {
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user)
 
   const [reviews, setReviews] = useState([])
   const [recipe, setRecipe] = useState(null)
@@ -18,7 +21,6 @@ const Recipe = ({recipeId, user, deleteRecipe}) => {
   
   useEffect(() => {
     fetchRecipe(recipeId)
-    //setReviews(recipe.reviews)
   }, [])
 
   const fetchRecipe = id => {
@@ -67,19 +69,13 @@ const Recipe = ({recipeId, user, deleteRecipe}) => {
         "Content-type": "application/json",
         Accept: "application/json"
       }
-    }).then(deleteRecipe(recipe)).then(history.push("/"))
+    })
+    .then(dispatch({
+      type: "DELETE_RECIPE",
+      value: recipe
+    }))
+    .then(history.push("/"))
   }  
-  
-  const amountFinder = ingredient => {
-    switch (ingredient) {
-      case "":
-        
-        break;
-    
-      default:
-        break;
-    }
-  }
   
   return recipe ? (
     <div className="recipe-page">
@@ -93,7 +89,7 @@ const Recipe = ({recipeId, user, deleteRecipe}) => {
       </ul>
       <h5>Hops</h5>
       <ul className="hops-list">
-        {recipe.recipe_hops.map((h, idx) => <li key={idx}>{h.hop.name}: {h.amount} oz.</li>)}
+        {recipe.recipe_hops.map((h, idx) => <li key={idx}>{h.hop.name}: {h.amount} oz. {h.boil_addition ? "Boil" : "Dry Hopping"} Addition Time: {h.addition_time}  {h.boil_addition ? "Minutes" : "Days"}</li>)}
       </ul>
       <h5>Yeast</h5>
       <ul className="yeast-list">
@@ -104,8 +100,10 @@ const Recipe = ({recipeId, user, deleteRecipe}) => {
       <h5>Notes</h5>
       <p>{recipe.notes}</p>
       {recipe.user_id === user.id && <Button onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) handleDelete() }}>Delete Recipe</Button>}
+      <br></br><br></br>
       <h5>Reviews</h5>
       <Reviews reviews={reviews} user={user} setReviews={setReviews} setReviewToEdit={setReviewToEdit} handleEditClick={handleReviewEditClick}/>
+      <br></br>
       { user !== false && ratingAndReviewForms()}
 
       <ReviewForm show={modalShow} onHide={() => setModalShow(false)} recipe={recipe} user={user} addReview={addReview} reviewToEdit={reviewToEdit} editReview={editReview} reviews={reviews}/>
@@ -113,4 +111,12 @@ const Recipe = ({recipeId, user, deleteRecipe}) => {
   )
    : (<div>Loading</div>)
 }
-export default Recipe
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    recipes: state.recipes
+  }
+}
+
+export default connect(mapStateToProps)(Recipe)

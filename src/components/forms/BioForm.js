@@ -7,7 +7,7 @@ const BioForm = (props) => {
   const [bioText, setBioText] = useState("")
 
   const patchBio = (e) => {
-    e.preventDefault()
+    e.preventDefault()  
     const form = e.target
     let token = localStorage.token;
     fetch(`http://localhost:3000/api/v1/edit`, {
@@ -19,7 +19,7 @@ const BioForm = (props) => {
       },
       body: JSON.stringify({
         bio: bioText,
-        user_id: props.user.id,
+        id: props.user.id,
       }),
     }).then(() => {
         form.reset()

@@ -7,7 +7,7 @@ const NoRoute = () => {
     return(
         <div>
             <h3>404 Not Found</h3>
-            <img src={image} alt="404 image" width='200px'/>
+            <img src={image} alt="404" width='200px'/>
         </div>
     )
 }

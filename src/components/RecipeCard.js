@@ -11,7 +11,7 @@ const RecipeCard = ({recipe}) => {
   return(
     
     <LinkContainer to={`/recipes/${recipe.id}`} style={{cursor: "pointer"}}>
-        <Card className="recipe-card">
+        <Card className="recipe-card text-center">
           <Card.Body>
             <Card.Title>{recipe.name}</Card.Title>
             <Card.Text>{style}</Card.Text>

@@ -1,3 +1,4 @@
+import { Button, Icon } from 'react-bootstrap'
 import React from "react";
 import HopField from './HopField'
 
@@ -65,12 +66,17 @@ function HopInputs({selected, setSelected, items}) {
                   handleBoilChange={handleBoilChange}
                   idx={idx} 
                   items={items}
+                  count={selected.length}
                   />
               </div>
             )
           })}
-
-        <button type="button" onClick={() => handleAdd()}>+</button> 
+         {selected.length > 1 && <Button className="btn-circle" type="button" variant="danger" onClick={() => handleRemove()}>Remove</Button>}
+        <Button 
+          className="btn-circle"
+          onClick={() => handleAdd()}
+        >Add Hops</Button>
+        
       
     </div>
   )

@@ -1,25 +1,117 @@
 .main {
-  padding: 5%;
+  position:relative;
+}
+
+.main-container {
+  padding-top:90px;
+  padding-left: 270px;
+  position: relative;
+  display: flex;
+  border: tomato;
+  border-style: double;
+}
+
+.navbar {
+  height: 70px;
+  background-color: #c7a900;
+  z-index: 1000;
+  color: wheat;
+}
+
+.sidebar-header{
+  padding: 17px;
+  font-weight: bold;
+  font-size: 18pt;
+  letter-spacing: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-container{
+  position: fixed;
+}
+
+.all-recipes{
+  position:relative;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 1200px) {
+.all-recipes {
+    
+    max-width: 1140px;
+    border: tomato;
+    border-style: double;
+}}
+
+.filter-sort-bar {
+  position:relative;
+  display: flex;
+  max-width: 400px;
+  margin-left: 0;
+  margin-right: 0;
+  border: tomato;
+  border-style: double;
+}
+
+.card-deck{
+  margin-top: 10px;
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: .5rem;
 }
 
 .recipe-card {
   margin: 20px;
-  min-width: 200px;
+  width: 250px;
 }
 
-.App {
-  text-align: center;
+.detail-items {
+  margin-left:auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.list-items{
+  max-width: 350px;
+  position: fixed;
+  height: 80%;
+  overflow-y: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.list-item{
+  cursor: pointer;
+  min-width: 300px;  
+}
+
+.item-display-container{
+  position:relative;
+  margin-right: 0;
+}
+
+.create-recipe-form {
+  position:relative;
+  padding: 10px;
+  padding-bottom: 30px;
+  overflow-y: auto;
+}
+
+.create-recipe-form .form-row{
+  padding-bottom:10px;
+}
+
+.boil-btn{
+  align-self: flex-end;
+}
+
+.btn-circle {
+  margin-right: 10px;
+}
+
+.create-beer-display{
+  align-self: center;
+  position: relative;
 }
 
 .App-header {
