@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
 		case 'ADD_RECIPE':
 			return {
 				...state,
-				recipes: [...state.recipes, action.value]
+				recipes: [action.value, ...state.recipes]
 			};
 		case 'DELETE_RECIPE':
 			const newRecipes = state.recipes.filter(r => r.id !== action.value.id)

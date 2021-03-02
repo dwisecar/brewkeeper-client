@@ -4,6 +4,11 @@
 
 .main-container {
   padding-top:90px;
+  padding-left: 270px;
+  position: relative;
+  display: flex;
+  border: tomato;
+  border-style: double;
 }
 
 .navbar {
@@ -27,9 +32,41 @@
   position: fixed;
 }
 
+.all-recipes{
+  position:relative;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 1200px) {
+.all-recipes {
+    
+    max-width: 1140px;
+    border: tomato;
+    border-style: double;
+}}
+
+.filter-sort-bar {
+  position:relative;
+  display: flex;
+  max-width: 400px;
+  margin-left: 0;
+  margin-right: 0;
+  border: tomato;
+  border-style: double;
+}
+
+.card-deck{
+  margin-top: 10px;
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: .5rem;
+}
+
 .recipe-card {
   margin: 20px;
-  max-width: 250px;
+  width: 250px;
 }
 
 .detail-items {
@@ -53,19 +90,28 @@
   margin-right: 0;
 }
 
-.App {
-  text-align: center;
+.create-recipe-form {
+  position:relative;
+  padding: 10px;
+  padding-bottom: 30px;
+  overflow-y: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.create-recipe-form .form-row{
+  padding-bottom:10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.boil-btn{
+  align-self: flex-end;
+}
+
+.btn-circle {
+  margin-right: 10px;
+}
+
+.create-beer-display{
+  align-self: center;
+  position: relative;
 }
 
 .App-header {

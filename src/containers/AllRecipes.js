@@ -1,49 +1,70 @@
 import React, { useEffect, useState } from 'react'
-import {Container, CardDeck, Form} from "react-bootstrap";
+import {Container, CardDeck, Form, CardColumns} from "react-bootstrap";
 import RecipeCard from '../components/RecipeCard';
-import { connect, useSelector, useDispatch } from "react-redux";
+import FilterSorter from './FilterSorter'
+import { connect, useSelector } from "react-redux";
 
-const AllRecipes = ({recipes}) => {
+const AllRecipes = () => {
 
-  const [filter, setFilter] = useState(null)
+  const [filter, setFilter] = useState({style: "All", fermentable: "All", hop: "All", yeast: "All"})
   const [filteredRecipes, setFilteredRecipes] = useState([])
+  const [sort, setSort] = useState("recent")
+  
+  const recipes = useSelector(state => state.recipes)
 
-  const styles = useSelector(state => state.styles)
-  const fermentables = useSelector(state => state.fermentables)
-  const hops = useSelector(state => state.hops)
-  const yeasts = useSelector(state => state.yeasts)
-
-  const Filterer = () => {
-    return (
-      <Form>
-        <Form.Control as="select" name="select-name" onChange={(e) => handleStyleChange(e)}>
-          <option value={null}>All</option>
-          {styles.map(item => <option value={item.id}>{item.name}</option>)}
-        </Form.Control>
-      </Form>
-    )
+  function handleFilter(e, type) {
+    setFilter({
+      ...filter,
+      [type]: e.target.value
+    })
   }
 
-  function handleStyleChange(e) {
-    if (e.target.value) {
-      setFilter(e.target.value) 
-      
-      setFilteredRecipes(recipes.filter(r => r.styles[0].id == e.target.value))
+  function handleSort(e) {
+    setSort(e.target.value)
+    doIt(e.target.value)
+  }
+
+  useEffect(() => {
+    doIt(sort)
+  }, [filter, recipes])
+
+  function doIt (e) {
+    let f_rec = recipes
+    for (const [k,v] of Object.entries(filter)) {
+      if(k === "style") {filter.style !== "All" && (f_rec = f_rec.filter(r => r.styles[0].id == filter.style))}
+      if(k === "fermentable") {filter.fermentable !== "All" && (f_rec = f_rec.filter(r => r.recipe_fermentables.some(re => re.fermentable_id == filter.fermentable)))}
+      if(k === "hop") {filter.hop !== "All" && (f_rec = f_rec.filter(r => r.recipe_hops.some(re => re.hop_id == filter.hop)))}
+      if(k === "yeast") {filter.yeast !== "All" && (f_rec = f_rec.filter(r => r.recipe_yeasts.some(re => re.yeast_id == filter.yeast)))}     
     }
-    else {   
-      setFilter(null)
+    switch (e) {
+      case "oldest":
+        return setFilteredRecipes(f_rec.sort((a,b) => Date.parse(a.created_at) - Date.parse(b.created_at)))
+      case "rated":
+        return setFilteredRecipes(f_rec.sort((a,b) => b.average_rating - a.average_rating))
+      case "recent":
+        return setFilteredRecipes(f_rec.sort((a,b) => Date.parse(b.created_at) - Date.parse(a.created_at)))
+      default:
+        break;
     }
   }
- 
+
+  
 
   return(
+    <>
     <Container className="all-recipes">
-      <Filterer />
-      <CardDeck>
-        {filter ? filteredRecipes.map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>) : 
-        recipes.map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}
+      <CardDeck>      
+        {filteredRecipes.map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}
       </CardDeck>
     </Container>
+    <Container className="filter-sort-bar">
+      <FilterSorter 
+        handleFilter={handleFilter}
+        handleSort={handleSort}
+        />
+    </Container>
+    </>
+
   )
 }
 

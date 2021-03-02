@@ -38,7 +38,7 @@ const MainContainer = props => {
             signOut={props.handleLogout} 
             handleEdit={props.handleEdit} 
             handleSearch={props.handleSearch}/>
-          <Container className="main-container" >
+          <Container className="main-container" fluid >
             
             <Switch>
               <Route exact path="/" render={() => (

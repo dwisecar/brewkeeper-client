@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import MultiField from './MultiField'
+import YeastField from "./YeastField";
 
-function MultiInputs({selected, setSelected, items}) { 
+function YeastInputs({selected, setSelected, items}) { 
 
   function handleAdd() {
     const values = [...selected];
@@ -40,7 +41,7 @@ function MultiInputs({selected, setSelected, items}) {
         {selected.map((field, idx) => {
           return(
               <div key={`${field}-${idx}`}>
-                <MultiField 
+                <YeastField
                   handleRemove={handleRemove} 
                   handleChange={handleChange}
                   handleAmountChange={handleAmountChange}
@@ -56,8 +57,8 @@ function MultiInputs({selected, setSelected, items}) {
         <Button 
           className="btn-circle"
           onClick={() => handleAdd()}
-        >Add Fermentables</Button>
+        >Add Yeast</Button>
       </div>
   )
 }
-export default MultiInputs
+export default YeastInputs
