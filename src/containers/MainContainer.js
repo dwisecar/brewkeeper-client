@@ -46,7 +46,8 @@ const MainContainer = props => {
                   recipes={recipes}
                 />)}
               />
-              <Route path="/profile" component={Profile}/>
+              {/* <Route path="/profile" component={Profile}/> */}
+              <Route path="/profile" render={() => <Profile notReduxUser={props.notReduxUser}/>}/> 
               <Route exact path="/brewers" render={() => <Brewers brewers={brewers} setBrewers={setBrewers}/>}/>
               <Route path="/styles" render={() => <StylesIngredients list={styles} type={"Styles"}/>}/>
               <Route path="/fermentables" render={() => <StylesIngredients list={fermentables} type={"Fermentables"}/>}/>

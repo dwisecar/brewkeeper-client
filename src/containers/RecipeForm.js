@@ -97,7 +97,7 @@ function RecipeForm(){
           </Col>
         </Form.Row>
 
-        <Form.Row>
+        <Form.Row className="border" style={{padding:"5px"}}>
         <Form.Group controlId="formBasicFermentables">
           <h5>Fermentables</h5>
             <MultiInputs 
@@ -108,7 +108,7 @@ function RecipeForm(){
         </Form.Group>
         </Form.Row>
 
-        <Form.Row>
+        <Form.Row className="border" style={{padding:"5px"}}>
         <Form.Group controlId="formBasicHops">
           <h5>Hops</h5>
             <HopInputs 
@@ -119,7 +119,7 @@ function RecipeForm(){
         </Form.Group>
         </Form.Row>
 
-        <Form.Row>
+        <Form.Row className="border" style={{padding:"5px"}}>
         <Form.Group controlId="formBasicYeast">
           <h5>Yeast</h5>
             <YeastInputs

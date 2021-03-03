@@ -16,7 +16,7 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
   const user = useSelector(state => state.user)
 
   return(
-    <ProSidebar className="sidebar-container"
+    <ProSidebar className="sidebar-container shadow"
       image={hops}
       rtl={rtl}
       collapsed={collapsed}
@@ -25,42 +25,43 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
       onToggle={handleToggleSidebar}
     >
       <SidebarHeader className="sidebar-header">
-        <Link to="/">BrewKeeper</Link>
+        <Link to="/" className="brewkeeper-logo" >BrewKeeper</Link>
       </SidebarHeader>
 
       <SidebarContent>
         <Menu iconShape="circle">
           <MenuItem icon={null}>
-            <Link to="/">RECIPES</Link>
+            <Link to="/" className="sidebar-link">RECIPES</Link>
           </MenuItem>
         </Menu>
 
         {user && 
         <><Menu>
           <MenuItem icon={null}>
-            <Link to="/recipes/new">CREATE A RECIPE</Link>
+            <Link to="/recipes/new" className="sidebar-link">CREATE A RECIPE</Link>
           </MenuItem>
         </Menu>
         <Menu>
           <MenuItem icon={null}>
-            <Link to="/profile">PROFILE</Link>
+            <Link to="/profile" className="sidebar-link">PROFILE</Link>
           </MenuItem>
         </Menu></>}
 
         <Menu>
           <MenuItem icon={null}>
-            <Link to="/brewers">BREWERS</Link>
+            <Link to="/brewers" className="sidebar-link">BREWERS</Link>
             </MenuItem>
         </Menu>
 
         <Menu>
           <MenuItem icon={null}>
-            <Link to="/styles">STYLES</Link>
+            <Link to="/styles" className="sidebar-link">STYLES</Link>
             </MenuItem>
         </Menu>
         
-        <Menu iconShape="circle">
+        <Menu iconShape="circle" >
           <SubMenu
+            
             title={"INGREDIENTS"}
             icon={null}
           >
@@ -85,7 +86,7 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
             rel="noopener noreferrer"
           >
             
-            <span>github</span>
+            <span>by David Wisecarver</span>
           </a>
         </div>
       </SidebarFooter>

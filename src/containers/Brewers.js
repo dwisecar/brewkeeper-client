@@ -13,6 +13,7 @@ class Brewers extends React.Component {
   render() {
     return(
       <Container className="all-recipes">
+        <h4>Brewers</h4>
         <CardDeck>
           {this.props.brewers.map((brewer, idx) => <BrewerCard key={idx} brewer={brewer}/>)}
         </CardDeck>

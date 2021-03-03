@@ -47,7 +47,7 @@ function Layout() {
     })
       .then((resp) => resp.json())
       .then(data => {
-        if (data["status"] === 400) {
+        if (data["error"]) {
           alert(data["error"])
         } 
         else {
@@ -77,7 +77,7 @@ function Layout() {
     })
       .then((resp) => resp.json())
       .then(data => {
-        if (data["status"] === 500) {
+        if (data["error"]) {
           alert(data["error"])
         } else {
           dispatch({
@@ -108,42 +108,6 @@ function Layout() {
         fetchRecipes()
       }
     )
-  }
-
-  //handle editing username
-  const handleEdit = (e) => {
-    e.preventDefault();
-    let form = e.target;
-    let token = localStorage.token;
-    let newUsername = e.target.username.value;
-    console.log(e.target.username.value);
-    fetch(`http://localhost:3000/api/v1/edit`, {
-      method: "PATCH",
-      headers: {
-        "Content-type": "application/json",
-        Accepts: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        id: user.id,
-        username: newUsername
-      }),
-    }).then(res => res.json())
-    .then(data => {
-          form.reset()
-          dispatch({
-            type: "CHANGE_USER",
-            value: {
-              user: data
-            }
-          })
-        }
-      )
-  }
-
-  const handleSearch = e => {
-    e.preventDefault()
-    console.log(e.target.search.value)
   }
 
   const handleLogout = () => {
@@ -197,7 +161,6 @@ function Layout() {
             userSignIn={userSignIn} 
             userSignUp={userSignUp} 
             handleLogOut={handleLogout} 
-            handleEdit={handleEdit} 
             handleLogout={handleLogout}
             />
           </div>

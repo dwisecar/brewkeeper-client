@@ -21,38 +21,37 @@ const AllRecipes = () => {
 
   function handleSort(e) {
     setSort(e.target.value)
-    doIt(e.target.value)
+    filterizer(e.target.value)
   }
 
   useEffect(() => {
-    doIt(sort)
+    filterizer(sort)
   }, [filter, recipes])
 
-  function doIt (e) {
-    let f_rec = recipes
+  function filterizer (e) {
+    let filteredRecipeList = recipes
     for (const [k,v] of Object.entries(filter)) {
-      if(k === "style") {filter.style !== "All" && (f_rec = f_rec.filter(r => r.styles[0].id == filter.style))}
-      if(k === "fermentable") {filter.fermentable !== "All" && (f_rec = f_rec.filter(r => r.recipe_fermentables.some(re => re.fermentable_id == filter.fermentable)))}
-      if(k === "hop") {filter.hop !== "All" && (f_rec = f_rec.filter(r => r.recipe_hops.some(re => re.hop_id == filter.hop)))}
-      if(k === "yeast") {filter.yeast !== "All" && (f_rec = f_rec.filter(r => r.recipe_yeasts.some(re => re.yeast_id == filter.yeast)))}     
+      if(k === "style") {filter.style !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.styles[0].id == filter.style))}
+      if(k === "fermentable") {filter.fermentable !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_fermentables.some(re => re.fermentable_id == filter.fermentable)))}
+      if(k === "hop") {filter.hop !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_hops.some(re => re.hop_id == filter.hop)))}
+      if(k === "yeast") {filter.yeast !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_yeasts.some(re => re.yeast_id == filter.yeast)))}     
     }
     switch (e) {
       case "oldest":
-        return setFilteredRecipes(f_rec.sort((a,b) => Date.parse(a.created_at) - Date.parse(b.created_at)))
+        return setFilteredRecipes(filteredRecipeList.sort((a,b) => Date.parse(a.created_at) - Date.parse(b.created_at)))
       case "rated":
-        return setFilteredRecipes(f_rec.sort((a,b) => b.average_rating - a.average_rating))
+        return setFilteredRecipes(filteredRecipeList.sort((a,b) => b.average_rating - a.average_rating))
       case "recent":
-        return setFilteredRecipes(f_rec.sort((a,b) => Date.parse(b.created_at) - Date.parse(a.created_at)))
+        return setFilteredRecipes(filteredRecipeList.sort((a,b) => Date.parse(b.created_at) - Date.parse(a.created_at)))
       default:
         break;
     }
   }
 
-  
-
   return(
     <>
     <Container className="all-recipes">
+      <h3>All Recipes</h3>
       <CardDeck>      
         {filteredRecipes.map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}
       </CardDeck>

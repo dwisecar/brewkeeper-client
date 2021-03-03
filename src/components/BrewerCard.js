@@ -9,9 +9,7 @@ const BrewerCard = ({brewer}) => {
     <Card className="recipe-card">
       <Card.Body>
         <Card.Title>{brewer.username}</Card.Title>
-        <Card.ImgOverlay src={"src/images/hops.jpg"}>
-          <Card.Text>{brewer.bio && brewer.bio}</Card.Text>
-        </Card.ImgOverlay>
+        <Card.Text>{brewer.bio && brewer.bio}</Card.Text>
       </Card.Body>
 
     </Card>
