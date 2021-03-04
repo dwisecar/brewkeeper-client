@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import YeastField from "./YeastField";
 import Icon from '@material-ui/core/Icon';
 
-function YeastInputs({selected, setSelected, items, updateStats}) { 
+function YeastInputs({selected, setSelected, items}) { 
 
   function handleChange(i, e) {
     const values = [...selected]
@@ -11,10 +11,7 @@ function YeastInputs({selected, setSelected, items, updateStats}) {
       ...values[i],
       id: e.target.value
     })
-    setSelected(values) 
-    setTimeout(() => {
-      updateStats()
-    }, 1000);  
+    setSelected(values)  
   }
 
   function handleAmountChange(i, e) {

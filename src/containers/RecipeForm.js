@@ -29,8 +29,10 @@ function RecipeForm(){
     updateStats()
   }, [selectedFermentables])
   
-  const [selectedHops, setSelectedHops] = useState([{ id: 1, amount: 0, additionTime: 60, boilAddition: true}])
-
+  const [selectedHops, setSelectedHops] = useState([{ id: 1, amount: 0, additionTime: 0, boilAddition: true}])
+  useEffect(() => {
+    updateStats()
+  }, [selectedHops])
   
   const [selectedYeasts, setSelectedYeasts] = useState([{id: 1, amount: 1}])
   useEffect(() => {
@@ -61,15 +63,17 @@ function RecipeForm(){
       fermentable = {...fermentable, amount: f.amount}
         chosenFermentables = [...chosenFermentables, fermentable]
       }
-    let chosenYeast = yeasts.find(yeast => yeast.id == selectedYeasts.id)
+    let chosenYeast = yeasts.find(yeast => yeast.id == selectedYeasts[0].id)
     const attenuation = chosenYeast ? (chosenYeast.attenuation_min + chosenYeast.attenuation_max) / 2 : 75
     const potential = chosenFermentables.map(f => parseFloat(f.amount) * ((parseFloat(f.potential) * 1000) - 1000))
     const totalPotential = potential.reduce((a, b) => a + b)
-    const efficiency = (totalPotential * 0.9) * (attenuation * 0.01)
-    const OG = ((efficiency/batchSize) / 1000) + 1
+    const efficiency = (totalPotential * 0.72) * (attenuation * 0.01)
+    const preBoilOG = ((efficiency/batchSize) / 1000) + 1
+    const OG = preBoilOG + (((preBoilOG - 1) * .55))
     OG && setOg(OG.toFixed(3))
     calculateFG(OG)
-    console.log("atten", attenuation, "pot", totalPotential, "eff", efficiency, "og", OG, "chosen", chosenFermentables)
+    calculateIBUs(OG)
+    calculateSRM(chosenFermentables)
   }
 
   const calculateFG = (og) => {
@@ -81,7 +85,40 @@ function RecipeForm(){
 
   const calculateABV = (og, fg) => {
     const ABV = (og - fg) * 131.25
-    ABV && setAbv(ABV.toFixed(2))
+    if(ABV){
+      if(ABV > 100) {setAbv("100, yikes!")}
+      else{setAbv(ABV.toFixed(2))}
+    }
+  }
+
+  const calculateIBUs = (og) => {
+    let chosenHops = []
+    for (const h of selectedHops) {
+      if(h.boilAddition){
+        let hop = hops.find(herp => herp.id == h.id)
+        hop = {
+          ...hop, 
+          amount: parseFloat(h.amount), 
+          additionTime: parseFloat(h.additionTime)
+        }
+        chosenHops = [...chosenHops, hop]
+        }
+      }
+    const ga = (og - 1.050) / 0.2
+    const ibuArr = []
+    chosenHops.forEach(hop => {
+      let utilization = 18.11 + (13.86 * Math.tanh((hop.additionTime - 31.21) / 18.27))
+      ibuArr.push((hop.amount * (utilization * 0.01) * (hop.alpha_acid_min * 0.01) * 7462) / (batchSize * (1 + ga)))
+    })
+    let IBU = 0
+    if (ibuArr.length > 0){IBU = ibuArr.reduce((a,b) => a + b)}
+    isNaN(IBU) ? setIbu(0) : setIbu(IBU.toFixed(1))
+  }
+
+  const calculateSRM = (fermentables) => {
+    const mcu = fermentables.map(f => (f.srm_id * f.amount) / batchSize).reduce((a,b) => a + b)
+    const SRM = (1.4922 * (mcu ** 0.6859))
+    isNaN(SRM) ? setSrm(0) : setSrm(SRM.toFixed())
   }
 
   const handleCreateRecipe = e => {

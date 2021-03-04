@@ -3,17 +3,17 @@ import React from "react";
 import HopField from './HopField'
 import Icon from '@material-ui/core/Icon';
 
-function HopInputs({selected, setSelected, items, updateStats}) { 
+function HopInputs({selected, setSelected, items}) { 
 
   function handleAdd() {
     const values = [...selected];
-    values.push({ id: 1, amount: 0, additionTime: 60, boilAddition: true });
+    values.push({ id: 1, amount: 0, additionTime: 0, boilAddition: true });
     setSelected(values)
   }
 
-  function handleRemove(i) {
+  function handleRemove() {
     const values = [...selected];
-    values.splice(i, 1);
+    values.pop()
     setSelected(values)  
   }
 
@@ -24,9 +24,6 @@ function HopInputs({selected, setSelected, items, updateStats}) {
       id: e.target.value
     })
     setSelected(values)
-    setTimeout(() => {
-      updateStats()
-    }, 1000);   
   }
 
   function handleAmountChange(i, e) {
