@@ -78,7 +78,7 @@ const Recipe = ({recipeId}) => {
   }  
   
   return recipe ? (
-    <Container className="recipe-page border">
+    <Container className="recipe-page">
       <Row>
         <Col className="text-center">
           <h3>{recipe.name}</h3>
@@ -123,12 +123,12 @@ const Recipe = ({recipeId}) => {
         </Col>
       </Row>
       
-      <Row className="border">
+      <Row className="reviews-box border rounded">
         <Col>
           <h5>Reviews</h5>
             <Reviews reviews={reviews} user={user} setReviews={setReviews} setReviewToEdit={setReviewToEdit} handleEditClick={handleReviewEditClick}/>
             <br></br>
-            { user !== false && ratingAndReviewForms()}
+            { user !== false && recipe.user_id !== user.id && ratingAndReviewForms()}
 
             <ReviewForm show={modalShow} onHide={() => setModalShow(false)} recipe={recipe} user={user} addReview={addReview} reviewToEdit={reviewToEdit} editReview={editReview} reviews={reviews}/>
     

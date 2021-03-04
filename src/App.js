@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from "./containers/Layout";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "./Sidebar.scss";
 import { BrowserRouter } from 'react-router-dom';
 
 

@@ -1,8 +1,9 @@
-import { Button, Icon } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import React from "react";
 import HopField from './HopField'
+import Icon from '@material-ui/core/Icon';
 
-function HopInputs({selected, setSelected, items}) { 
+function HopInputs({selected, setSelected, items, updateStats}) { 
 
   function handleAdd() {
     const values = [...selected];
@@ -22,7 +23,10 @@ function HopInputs({selected, setSelected, items}) {
       ...values[i],
       id: e.target.value
     })
-    setSelected(values)  
+    setSelected(values)
+    setTimeout(() => {
+      updateStats()
+    }, 1000);   
   }
 
   function handleAmountChange(i, e) {
@@ -71,13 +75,24 @@ function HopInputs({selected, setSelected, items}) {
               </div>
             )
           })}
-         {selected.length > 1 && <Button className="btn-circle" type="button" variant="danger" onClick={() => handleRemove()}>Remove</Button>}
-        <Button 
-          className="btn-circle"
-          onClick={() => handleAdd()}
-        >Add Hops</Button>
-        
-      
+        <Row>
+          <Col xs={1}>
+            <Icon 
+              className="fa fa-plus-circle" 
+              style={{ color: "black", cursor: "pointer" }} 
+              onClick={() => handleAdd()}
+            />
+          </Col>
+          <Col>
+            {selected.length > 1 && 
+              <Icon 
+                className="fa fa-minus-circle"
+                style={{ color: "brown", cursor: "pointer" }} 
+                onClick={() => handleRemove()}
+              />
+            }
+          </Col>
+        </Row>
     </div>
   )
 }

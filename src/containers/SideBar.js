@@ -8,16 +8,15 @@ import { ProSidebar,
   SidebarContent} from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { connect, useSelector } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
-import hops from "../images/hops.jpg"
+import { Link } from 'react-router-dom';
+import Icon from '@material-ui/core/Icon';
 
 const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
 
   const user = useSelector(state => state.user)
 
   return(
-    <ProSidebar className="sidebar-container shadow"
-      image={hops}
+    <ProSidebar style={{position: "fixed"}}className="sidebar-container shadow"
       rtl={rtl}
       collapsed={collapsed}
       toggled={toggled}
@@ -76,17 +75,15 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
         <div
           className="sidebar-btn-wrapper"
           style={{
-            padding: '20px 24px',
+            padding: '10px 14px',
           }}
-        >
-          <a
-            href="https://github.com/dwisecar"
-            target="_blank"
-            className="sidebar-btn"
-            rel="noopener noreferrer"
-          >
-            
-            <span>by David Wisecarver</span>
+        >by Dave Wisecarver 
+          <br></br>
+          <a href="https://github.com/dwisecar">
+            <Icon className="fa fa-github"></Icon>
+          </a><span> </span>
+          <a href="https://www.linkedin.com/in/david-wisecarver-15197814a/">
+            <Icon className="fa fa-linkedin"></Icon>
           </a>
         </div>
       </SidebarFooter>

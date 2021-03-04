@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SideBar from './SideBar'
 import MainContainer from "./MainContainer"
 import { connect, useDispatch, useSelector } from 'react-redux';
+import NavBar from "../components/NavBar";
 
 function Layout() {
   
@@ -148,22 +149,23 @@ function Layout() {
           toggled={toggled}
           handleToggleSidebar={handleToggleSidebar}
         />
-        <div>
-          <MainContainer className="content-display"
-            image={image}
-            toggled={toggled}
-            collapsed={collapsed}
-            rtl={rtl}
-            handleToggleSidebar={handleToggleSidebar}
-            handleCollapsedChange={handleCollapsedChange}
-            handleRtlChange={handleRtlChange}
-            handleImageChange={handleImageChange}
-            userSignIn={userSignIn} 
-            userSignUp={userSignUp} 
-            handleLogOut={handleLogout} 
-            handleLogout={handleLogout}
-            />
-          </div>
+        <NavBar 
+          signIn={userSignIn} 
+          signUp={userSignUp} 
+          signOut={handleLogout} 
+        />
+
+        <MainContainer className="content-display"
+          image={image}
+          toggled={toggled}
+          collapsed={collapsed}
+          rtl={rtl}
+          handleToggleSidebar={handleToggleSidebar}
+          handleCollapsedChange={handleCollapsedChange}
+          handleRtlChange={handleRtlChange}
+          handleImageChange={handleImageChange}
+        />
+
         </div>
   )
 

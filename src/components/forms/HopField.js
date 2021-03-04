@@ -17,13 +17,15 @@ function HopField({count, handleRemove, idx, items, handleChange, handleAmountCh
 
       <Col xs={2}>
         <Form.Label>Oz</Form.Label>
-        <Form.Control type="number" step="0.01" name="multi-select-amount"  onChange={(e) => handleAmountChange(idx, e)}/>
+        <Form.Control type="number" step="0.01" min="0" name="multi-select-amount"  onChange={(e) => handleAmountChange(idx, e)}/>
       </Col>
 
       <Col className="boil-btn">
         <BootstrapSwitchButton
+          onstyle="dark"
+          offstyle="success"
           checked={boilAddition}
-          width={100} height={38}
+          width={100}
           onlabel='Boil'
           offlabel='Dry Hop'
           onChange={checked => {
@@ -35,7 +37,7 @@ function HopField({count, handleRemove, idx, items, handleChange, handleAmountCh
       
       <Col xs={4}>
         <Form.Label>Addition Time {boilAddition ? "(Minutes)" : "(Days)"}</Form.Label>
-        <Form.Control type="number" name="multi-select-time"  onChange={(e) => handleTimeChange(idx, e)}/>
+        <Form.Control type="number" min="0" name="multi-select-time"  onChange={(e) => handleTimeChange(idx, e)}/>
       </Col>
 
       </Form.Row>

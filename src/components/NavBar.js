@@ -4,7 +4,6 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import LogInModal from './LogInModal'
-import image from "../assets/images/hops-bar.png"  
 
 const NavBar = ({
   signIn,
@@ -19,9 +18,8 @@ const NavBar = ({
 
   return (
     <>
+    <Navbar className="navbar shadow" expand="lg" fixed="top" variant="dark">
     
-    <Navbar className="navbar shadow" expand="lg" fixed="top" >
-    <img src={image} id="nav-hops" alt="hops-on-navbar"></img>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">

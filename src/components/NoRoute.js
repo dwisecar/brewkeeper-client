@@ -1,6 +1,6 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import image from '../images/404.gif'
+import image from '../assets/images/404.gif'
 
 
 const NoRoute = () => {

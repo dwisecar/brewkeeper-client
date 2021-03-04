@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import NavBar from "../components/NavBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Route, Switch } from "react-router-dom";
 import RecipeForm from './RecipeForm';
 import AllRecipes from "./AllRecipes";
 import Profile from '../components/Profile'
-import FermentablesDetails from './FermentablesDetails';
-import HopsDetails from "./HopsDetails"
-import YeastDetails from "./YeastDetails"
 import Recipe from '../components/Recipe'
 import Brewer from './Brewer'
 import Brewers from './Brewers'
-import Styles from './Styles'
 import NoRoute from '../components/NoRoute'
 import { Container } from 'react-bootstrap';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import StylesIngredients from './StylesIngredients';
 
 
@@ -32,14 +28,7 @@ const MainContainer = props => {
 
     return(
         <div className='main'>
-          <NavBar 
-            signIn={props.userSignIn} 
-            signUp={props.userSignUp} 
-            signOut={props.handleLogout} 
-            handleEdit={props.handleEdit} 
-            handleSearch={props.handleSearch}/>
-          <Container className="main-container" fluid >
-            
+          <Container className="main-container" fluid >        
             <Switch>
               <Route exact path="/" render={() => (
                 <AllRecipes 
