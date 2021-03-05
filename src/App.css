@@ -214,10 +214,32 @@ body {
   top: 380px;
 }
 
-.create-beer-display img {
+.beer-image-overlays{
+  position: relative;
   width: 150px;
-  
+  height: 380px;
 }
+
+#beer-bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: auto;
+}
+
+#overlayed-beer-svg{
+  position: relative;
+  z-index: 2;
+  mix-blend-mode: multiply;
+  width: 112.6pt;
+  height: auto;
+}
+
+#beer-cover-shape{
+  filter: invert(1)
+}
+
+
 
 .App-header {
   background-color: #282c34;

@@ -6,6 +6,13 @@ import Reviews from './recipe_show/Reviews'
 import { useHistory, Link } from "react-router-dom";
 import Stats from './recipe_show/Stats'
 import { connect, useSelector, useDispatch } from "react-redux";
+import brown from '../assets/images/brown.png'
+import paleAle from '../assets/images/pale-ale.png'
+import paleTall from '../assets/images/pale-tall.png'
+import pilsner from '../assets/images/pilsner.png'
+import redShort from '../assets/images/red-short.png'
+import redTall from '../assets/images/red-tall.png'
+import stout from '../assets/images/stout.png'
 
 const Recipe = ({recipeId}) => {
 
@@ -16,6 +23,7 @@ const Recipe = ({recipeId}) => {
   const [recipe, setRecipe] = useState(null)
   const [reviewToEdit, setReviewToEdit] = useState(null)
   const [modalShow, setModalShow] = useState(false)
+  const [img, setImg] = useState(null)
   
   let history = useHistory()
   
@@ -29,7 +37,30 @@ const Recipe = ({recipeId}) => {
     .then(data => {
       setRecipe(data)
       setReviews(data.reviews)
+      setImg(data.styles.map(style => style.image))
     })
+  }
+
+  const beerImage = (img) => {
+    switch (img) {
+      case "brown":
+        return brown
+      case "pale-ale":
+        return paleAle
+      case "pale-tall":
+        return paleTall
+      case "pilsner":
+        return pilsner
+      case "red-short":
+        return redShort
+      case "red-tall":
+        return redTall
+      case "stout":
+        return stout
+
+      default:
+        break;
+    }
   }
 
   const ratingAndReviewForms = () => {
@@ -90,6 +121,10 @@ const Recipe = ({recipeId}) => {
       <Row>
         <Col >
           <Stats recipe={recipe}/>
+        </Col>
+          <img src={beerImage(img)} alt="beer-style"/>
+        <Col>
+
         </Col>
         <Col>
           {recipe.ratings.length !== 0 ? <h5>Average Rating: {avgRating()}</h5> :

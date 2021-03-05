@@ -70,10 +70,18 @@ function RecipeForm(){
     const efficiency = (totalPotential * 0.72) * (attenuation * 0.01)
     const preBoilOG = ((efficiency/batchSize) / 1000) + 1
     const OG = preBoilOG + (((preBoilOG - 1) * .55))
-    OG && setOg(OG.toFixed(3))
-    calculateFG(OG)
-    calculateIBUs(OG)
-    calculateSRM(chosenFermentables)
+    if(OG) {
+      setOg(OG.toFixed(3))
+      calculateFG(OG)
+      calculateIBUs(OG)
+      calculateSRM(chosenFermentables)
+    } else{
+      setOg(1.000)
+      setFg(1.000)
+      setAbv(0)
+      setIbu(0)
+      setSrm(0)
+    }
   }
 
   const calculateFG = (og) => {
@@ -132,7 +140,12 @@ function RecipeForm(){
       hops: selectedHops, 
       yeasts: selectedYeasts,
       instructions: instructions,
-      notes: notes
+      notes: notes,
+      og: og,
+      fg: fg,
+      abv: abv,
+      ibu: ibu,
+      srm: srm
     }
     fetch("http://localhost:3000/recipes", {
       method: "POST",
