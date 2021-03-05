@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import React from "react";
+import { Row, Col } from "react-bootstrap";
 import MultiField from './MultiField'
+import Icon from '@material-ui/core/Icon';
 
-function MultiInputs({selected, setSelected, items}) { 
+function MultiInputs({selected, setSelected, items, updateStats}) { 
 
   function handleAdd() {
     const values = [...selected];
@@ -52,11 +53,24 @@ function MultiInputs({selected, setSelected, items}) {
               </div>
           )
         })}
-      {selected.length > 1 && <Button className="btn-circle" type="button" variant="danger" onClick={() => handleRemove()}>Remove</Button>}
-        <Button 
-          className="btn-circle"
-          onClick={() => handleAdd()}
-        >Add Fermentables</Button>
+        <Row>
+          <Col xs={1}>
+            <Icon 
+              className="fa fa-plus-circle" 
+              style={{ color: "black", cursor: "pointer" }} 
+              onClick={() => handleAdd()}
+            />
+          </Col>
+          <Col>
+            {selected.length > 1 && 
+              <Icon 
+                className="fa fa-minus-circle"
+                style={{ color: "brown", cursor: "pointer" }} 
+                onClick={() => handleRemove()}
+              />
+            }
+          </Col>
+        </Row>
       </div>
   )
 }

@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap'
+import { Button, Container, Row, Col } from 'react-bootstrap'
 import React, { useState } from 'react'
 
 
@@ -17,18 +17,25 @@ const Reviews = ({reviews, user, setReviews, setReviewToEdit, handleEditClick}) 
   }  
 
   return(
-    <div className="reviews">
+    <Container className="reviews">
       {reviews.map(review => (
-        <div className="review" key={review.id}>
-          <p>{review.user.username}: {review.content}</p>  
+        <Row className="review" key={review.id} className="border">
+          <Col>
+            <p>{review.user.username}: {review.content}</p> 
+          </Col>
           {review.user_id === user.id && <>
-          <Button onClick={() => (
-            setReviewToEdit(review),
-            handleEditClick()
-            )}>Edit</Button>
-          <Button onClick={() => handleDelete(review)}>X</Button></>}
-        </div>))}
-    </div>
+            <Col xs={1}>
+              <Button onClick={() => (
+              setReviewToEdit(review),
+              handleEditClick()
+              )}>Edit</Button>
+            </Col>
+          
+            <Col xs={1}>
+              <Button onClick={() => handleDelete(review)}>X</Button>
+            </Col></>}
+        </Row>))}
+    </Container>
   )
 
 }

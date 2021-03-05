@@ -1,25 +1,25 @@
-import React from "react";
-import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import React, { useState }from "react";
+import {Navbar, Nav} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import SignIn from "./forms/SignIn";
-import SignUp from "./forms/SignUp";
-import EditUser from "./forms/EditUser";
 import { useHistory } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
-//import { GoSearch } from "react-icons/go";
+import LogInModal from './LogInModal'
 
 const NavBar = ({
   signIn,
   signUp,
   signOut,
-  handleEdit,
-  handleSearch
 }) => {
   let history = useHistory();
   const user = useSelector(state => state.user)
 
+  const [signInModalShow, setSignInModalShow] = useState(false)
+  const [signUpModalShow, setSignUpModalShow] = useState(false)
+
   return (
-    <Navbar className="navbar" expand="lg" fixed="top" >
+    <>
+    <Navbar className="navbar shadow" expand="lg" fixed="top" variant="dark">
+    
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
@@ -45,25 +45,29 @@ const NavBar = ({
                   Sign Out
                 </Nav.Link>
               </LinkContainer>
-              <NavDropdown title="Edit User">
-                <EditUser handleEdit={handleEdit} user={user} />
-              </NavDropdown>
             </>
           ) : (
             <>
-              <NavDropdown title="Sign In">
-                <SignIn signIn={signIn} />
-              </NavDropdown>
-              <NavDropdown title="Sign Up">
-                <SignUp signUp={signUp} />
-              </NavDropdown>
+              <Nav.Link onClick={() => setSignInModalShow(true)}>Log In</Nav.Link>
+              <Nav.Link onClick={() => setSignUpModalShow(true)}>Sign Up</Nav.Link>
             </>
           )}
         </Nav>
-        {/* <GoSearch style={{ marginRight: "10px" }} /> */}
+
         
       </Navbar.Collapse>
     </Navbar>
+    <LogInModal 
+      show={signInModalShow} 
+      onHide={() => setSignInModalShow(false)} 
+      signIn={signIn}
+      header={"Log In"}/>
+    <LogInModal 
+      show={signUpModalShow} 
+      onHide={() => setSignUpModalShow(false)} 
+      signIn={signUp}
+      header={"Sign Up"}/>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap'
+import { Button, Container, Row, Col } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import RatingForm from './forms/RatingForm'
 import ReviewForm from './forms/ReviewForm'
@@ -6,6 +6,13 @@ import Reviews from './recipe_show/Reviews'
 import { useHistory, Link } from "react-router-dom";
 import Stats from './recipe_show/Stats'
 import { connect, useSelector, useDispatch } from "react-redux";
+import brown from '../assets/images/brown.png'
+import paleAle from '../assets/images/pale-ale.png'
+import paleTall from '../assets/images/pale-tall.png'
+import pilsner from '../assets/images/pilsner.png'
+import redShort from '../assets/images/red-short.png'
+import redTall from '../assets/images/red-tall.png'
+import stout from '../assets/images/stout.png'
 
 const Recipe = ({recipeId}) => {
 
@@ -16,6 +23,7 @@ const Recipe = ({recipeId}) => {
   const [recipe, setRecipe] = useState(null)
   const [reviewToEdit, setReviewToEdit] = useState(null)
   const [modalShow, setModalShow] = useState(false)
+  const [img, setImg] = useState(null)
   
   let history = useHistory()
   
@@ -29,7 +37,30 @@ const Recipe = ({recipeId}) => {
     .then(data => {
       setRecipe(data)
       setReviews(data.reviews)
+      setImg(data.styles.map(style => style.image))
     })
+  }
+
+  const beerImage = (img) => {
+    switch (img) {
+      case "brown":
+        return brown
+      case "pale-ale":
+        return paleAle
+      case "pale-tall":
+        return paleTall
+      case "pilsner":
+        return pilsner
+      case "red-short":
+        return redShort
+      case "red-tall":
+        return redTall
+      case "stout":
+        return stout
+
+      default:
+        break;
+    }
   }
 
   const ratingAndReviewForms = () => {
@@ -78,36 +109,67 @@ const Recipe = ({recipeId}) => {
   }  
   
   return recipe ? (
-    <div className="recipe-page">
-      <h3>{recipe.name}, by {recipe.user.username}</h3>
-      <h4>{recipe.styles[0].name}</h4>
-      <Stats recipe={recipe}/>
-      {recipe.ratings.length !== 0 && <h5>Average Rating: {avgRating()}</h5>}
-      <h5>Fermentables</h5>
-      <ul className="fermentables-list">
-        {recipe.recipe_fermentables.map((f, idx) => <li key={idx}>{f.fermentable.name}: {f.amount} Lbs.</li>)}
-      </ul>
-      <h5>Hops</h5>
-      <ul className="hops-list">
-        {recipe.recipe_hops.map((h, idx) => <li key={idx}>{h.hop.name}: {h.amount} oz. {h.boil_addition ? "Boil" : "Dry Hopping"} Addition Time: {h.addition_time}  {h.boil_addition ? "Minutes" : "Days"}</li>)}
-      </ul>
-      <h5>Yeast</h5>
-      <ul className="yeast-list">
-        {recipe.recipe_yeasts.map((y, idx) => <li key={idx}>{y.yeast.name}: {y.amount} pack.</li>)}
-      </ul>
-      <h5>Instructions</h5>
-        <p>{recipe.instructions}</p>
-      <h5>Notes</h5>
-      <p>{recipe.notes}</p>
-      {recipe.user_id === user.id && <Button onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) handleDelete() }}>Delete Recipe</Button>}
-      <br></br><br></br>
-      <h5>Reviews</h5>
-      <Reviews reviews={reviews} user={user} setReviews={setReviews} setReviewToEdit={setReviewToEdit} handleEditClick={handleReviewEditClick}/>
-      <br></br>
-      { user !== false && ratingAndReviewForms()}
+    <Container className="recipe-page">
+      <Row>
+        <Col className="text-center">
+          <h3>{recipe.name}</h3>
+          <h4>{recipe.styles[0].name}</h4>
+          <h6>By {recipe.user.username}</h6>
+        </Col>
+      </Row>
 
-      <ReviewForm show={modalShow} onHide={() => setModalShow(false)} recipe={recipe} user={user} addReview={addReview} reviewToEdit={reviewToEdit} editReview={editReview} reviews={reviews}/>
-    </div>
+      <Row>
+        <Col >
+          <Stats recipe={recipe}/>
+        </Col>
+          <img src={beerImage(img)} alt="beer-style"/>
+        <Col>
+
+        </Col>
+        <Col>
+          {recipe.ratings.length !== 0 ? <h5>Average Rating: {avgRating()}</h5> :
+          <h5>Average Rating: 0</h5>}
+        </Col>
+      </Row>
+      
+      <Row>
+        <Col>
+          <h5>Fermentables</h5>
+            <ul className="fermentables-list">
+              {recipe.recipe_fermentables.map((f, idx) => <li key={idx}>{f.fermentable.name}: {f.amount} Lbs.</li>)}
+            </ul>
+            <h5>Hops</h5>
+            <ul className="hops-list">
+              {recipe.recipe_hops.map((h, idx) => <li key={idx}>{h.hop.name}: {h.amount} oz. {h.boil_addition ? "Boil" : "Dry Hopping"} Addition Time: {h.addition_time}  {h.boil_addition ? "Minutes" : "Days"}</li>)}
+            </ul>
+            <h5>Yeast</h5>
+            <ul className="yeast-list">
+              {recipe.recipe_yeasts.map((y, idx) => <li key={idx}>{y.yeast.name}: {y.amount} pack.</li>)}
+            </ul>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h5>Instructions</h5>
+            <p>{recipe.instructions}</p>
+          <h5>Notes</h5>
+            <p>{recipe.notes}</p>
+            {recipe.user_id === user.id && <Button onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) handleDelete() }}>Delete Recipe</Button>} 
+        </Col>
+      </Row>
+      
+      <Row className="reviews-box border rounded">
+        <Col>
+          <h5>Reviews</h5>
+            <Reviews reviews={reviews} user={user} setReviews={setReviews} setReviewToEdit={setReviewToEdit} handleEditClick={handleReviewEditClick}/>
+            <br></br>
+            { user !== false && recipe.user_id !== user.id && ratingAndReviewForms()}
+
+            <ReviewForm show={modalShow} onHide={() => setModalShow(false)} recipe={recipe} user={user} addReview={addReview} reviewToEdit={reviewToEdit} editReview={editReview} reviews={reviews}/>
+    
+        </Col>
+      </Row>
+      </Container>
   )
    : (<div>Loading</div>)
 }

@@ -23,10 +23,7 @@ function MultiField({
       </Col>
       <Col xs={3}>
         <Form.Label>Lbs</Form.Label>
-        <Form.Control type="number" step="0.01" name="multi-select-amount" onChange={(e) => handleAmountChange(idx, e)}/>
-      </Col>
-      <Col>
-        {/* {count > 1 && <button type="button" onClick={() => {handleRemove(idx)}}>X</button>} */}
+        <Form.Control type="number" step="0.01" min="0" name="multi-select-amount" onChange={(e) => handleAmountChange(idx, e)}/>
       </Col>
       </Form.Row>
     </>

@@ -14,6 +14,15 @@ export const reducer = (state, action) => {
 				...state,
 				user: action.value
 			};
+		case 'UPDATE_USER':
+			return {
+				...state,
+				user: {
+					...state.user,
+					bio: action.bio,
+					username: action.username
+				}
+			};
 		case 'SET_RECIPES':
 			return {
 				...state,

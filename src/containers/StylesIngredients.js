@@ -8,8 +8,7 @@ import YeastDisplay from '../components/ingredientDisplays/YeastDisplay'
 
 const StylesIngredients = ({list, type}) => {
 
-  const [selectedIngredient, setSelectedIngredient] = useState(list)
-
+  const [selectedIngredient, setSelectedIngredient] = useState(list[0])
 
   return (
     <>

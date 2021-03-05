@@ -15,7 +15,7 @@ const Brewer = ({brewerId}) => {
   }, [])
 
   return(
-    <div>
+
       <Container className="user-profile">
         <h3>{brewer.username}</h3>
         {<><h5>Bio</h5><p>{brewer.bio}</p></>}<br></br>
@@ -25,7 +25,7 @@ const Brewer = ({brewerId}) => {
           .map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}
         </CardDeck>
       </Container>
-    </div>
+
   )
 }
 
