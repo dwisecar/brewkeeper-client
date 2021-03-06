@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import MultiField from './MultiField'
 import Icon from '@material-ui/core/Icon';
 
-function MultiInputs({selected, setSelected, items, updateStats}) { 
+function MultiInputs({selected, setSelected, items}) { 
 
   function handleAdd() {
     const values = [...selected];

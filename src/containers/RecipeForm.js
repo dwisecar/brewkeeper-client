@@ -24,20 +24,20 @@ function RecipeForm(){
   }, [batchSize])
 
   const [selectedStyle, setSelectedStyle] = useState({ id: 1 })
-  const [selectedFermentables, setSelectedFermentables] = useState([{ id:1, amount: 0 }])
+  const [selectedFermentables, setSelectedFermentables] = useState([{ id:47, amount: 0 }])
   useEffect(() => {
     updateStats()
-  }, [selectedFermentables])
+  }, [selectedFermentables, fermentables])
   
   const [selectedHops, setSelectedHops] = useState([{ id: 1, amount: 0, additionTime: 0, boilAddition: true}])
   useEffect(() => {
     updateStats()
-  }, [selectedHops])
+  }, [selectedHops, hops])
   
   const [selectedYeasts, setSelectedYeasts] = useState([{id: 1, amount: 1}])
   useEffect(() => {
     updateStats()
-  }, [selectedYeasts])
+  }, [selectedYeasts, yeasts])
   
   const [instructions, setInstructions] = useState('')
   const [notes, setNotes] = useState('')
@@ -66,6 +66,7 @@ function RecipeForm(){
     let chosenYeast = yeasts.find(yeast => yeast.id == selectedYeasts[0].id)
     const attenuation = chosenYeast ? (chosenYeast.attenuation_min + chosenYeast.attenuation_max) / 2 : 75
     const potential = chosenFermentables.map(f => parseFloat(f.amount) * ((parseFloat(f.potential) * 1000) - 1000))
+    console.log(chosenFermentables, potential)
     const totalPotential = potential.reduce((a, b) => a + b)
     const efficiency = (totalPotential * 0.72) * (attenuation * 0.01)
     const preBoilOG = ((efficiency/batchSize) / 1000) + 1
@@ -212,7 +213,6 @@ function RecipeForm(){
                   items={fermentables} 
                   setSelected={setSelectedFermentables}
                   selected={selectedFermentables}
-                  updateStats={updateStats}
                 />
             </Form.Group>
             </Form.Row>
@@ -224,7 +224,6 @@ function RecipeForm(){
                   items={hops} 
                   setSelected={setSelectedHops}
                   selected={selectedHops}
-                  updateStats={updateStats}
                 />
             </Form.Group>
             </Form.Row>
@@ -236,7 +235,6 @@ function RecipeForm(){
                   items={yeasts} 
                   setSelected={setSelectedYeasts}
                   selected={selectedYeasts}
-                  updateStats={updateStats}
                 />
             </Form.Group>
             </Form.Row>

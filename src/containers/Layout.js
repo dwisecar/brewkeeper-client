@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import SideBar from './SideBar'
 import MainContainer from "./MainContainer"
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import NavBar from "../components/NavBar";
 
 function Layout() {
   
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user)
 
   useEffect(() => {
     const token = localStorage.token
@@ -141,32 +140,32 @@ function Layout() {
   };
 
   return(      
-      <div className={`app ${rtl ? 'rtl' : ''} ${toggled ? 'toggled' : ''}`}>
-        <SideBar
-          image={image}
-          collapsed={collapsed}
-          rtl={rtl}
-          toggled={toggled}
-          handleToggleSidebar={handleToggleSidebar}
-        />
-        <NavBar 
-          signIn={userSignIn} 
-          signUp={userSignUp} 
-          signOut={handleLogout} 
-        />
+    <div className={`app ${rtl ? 'rtl' : ''} ${toggled ? 'toggled' : ''}`}>
+      <SideBar
+        image={image}
+        collapsed={collapsed}
+        rtl={rtl}
+        toggled={toggled}
+        handleToggleSidebar={handleToggleSidebar}
+      />
+      <NavBar 
+        signIn={userSignIn} 
+        signUp={userSignUp} 
+        signOut={handleLogout} 
+      />
 
-        <MainContainer className="content-display"
-          image={image}
-          toggled={toggled}
-          collapsed={collapsed}
-          rtl={rtl}
-          handleToggleSidebar={handleToggleSidebar}
-          handleCollapsedChange={handleCollapsedChange}
-          handleRtlChange={handleRtlChange}
-          handleImageChange={handleImageChange}
-        />
+      <MainContainer className="content-display"
+        image={image}
+        toggled={toggled}
+        collapsed={collapsed}
+        rtl={rtl}
+        handleToggleSidebar={handleToggleSidebar}
+        handleCollapsedChange={handleCollapsedChange}
+        handleRtlChange={handleRtlChange}
+        handleImageChange={handleImageChange}
+      />
 
-        </div>
+    </div>
   )
 
 }

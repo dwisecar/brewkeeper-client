@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Container, ListGroup } from 'react-bootstrap'
-import { connect, useSelector } from 'react-redux'
+import React from 'react'
+
 
 const FermentableDisplay = ({item}) => {
 
