@@ -62,6 +62,7 @@ const FilterSorter = ({handleFilter, handleSort}) => {
         <Form.Control as="select" name="select-name" onChange={(e) => handleSort(e)}>
           <option value={"recent"}>Most Recent</option>
           <option value={"rated"}>Highest Rated</option>
+          <option value={"oldest"}>Oldest</option>
         </Form.Control>
       </Form.Row>
     </Form>

@@ -1,4 +1,4 @@
-import { Button, Container, Row, Col } from 'react-bootstrap'
+import { Button, Container, Row, Col, OverlayTrigger, Popover } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import RatingForm from './forms/RatingForm'
 import ReviewForm from './forms/ReviewForm'
@@ -23,7 +23,7 @@ const Recipe = ({recipeId}) => {
   const [recipe, setRecipe] = useState(null)
   const [reviewToEdit, setReviewToEdit] = useState(null)
   const [modalShow, setModalShow] = useState(false)
-  const [img, setImg] = useState(null)
+  const [beerImg, setBeerImg] = useState()
   
   let history = useHistory()
   
@@ -37,28 +37,36 @@ const Recipe = ({recipeId}) => {
     .then(data => {
       setRecipe(data)
       setReviews(data.reviews)
-      setImg(data.styles.map(style => style.image))
+      beerImage(data.styles.map(style => style.image)[0])
     })
   }
 
   const beerImage = (img) => {
+
     switch (img) {
       case "brown":
-        return brown
+        setBeerImg(brown);
+        break;
       case "pale-ale":
-        return paleAle
+        setBeerImg(paleAle);
+        break;
       case "pale-tall":
-        return paleTall
+        setBeerImg(paleTall);
+        break;
       case "pilsner":
-        return pilsner
+        setBeerImg(pilsner);
+        break;
       case "red-short":
-        return redShort
-      case "red-tall":
-        return redTall
+        setBeerImg(redShort);
+        break;
       case "stout":
-        return stout
-
+        setBeerImg(stout);
+        break;
+      case "red-tall":
+        setBeerImg(redTall);
+        break;
       default:
+        setBeerImg(paleTall);
         break;
     }
   }
@@ -106,14 +114,17 @@ const Recipe = ({recipeId}) => {
       value: recipe
     }))
     .then(history.push("/"))
-  }  
+  }
   
   return recipe ? (
     <Container className="recipe-page">
       <Row>
         <Col className="text-center">
           <h3>{recipe.name}</h3>
-          <h4>{recipe.styles[0].name}</h4>
+          <Link to={`/styles/${recipe.styles[0].id}`} style={{textDecoration: "none", color: "bisque"}}>
+            <h4>{recipe.styles[0].name}</h4>
+          </Link>
+          
           <h6>By {recipe.user.username}</h6>
         </Col>
       </Row>
@@ -122,9 +133,8 @@ const Recipe = ({recipeId}) => {
         <Col >
           <Stats recipe={recipe}/>
         </Col>
-          <img src={beerImage(img)} alt="beer-style"/>
-        <Col>
-
+        <Col style={{textAlign: "center"}}>
+          <img src={beerImg} alt="beer-style"/>
         </Col>
         <Col>
           {recipe.ratings.length !== 0 ? <h5>Average Rating: {avgRating()}</h5> :
@@ -133,18 +143,55 @@ const Recipe = ({recipeId}) => {
       </Row>
       
       <Row>
-        <Col>
+        <Col xs={5}>
           <h5>Fermentables</h5>
             <ul className="fermentables-list">
-              {recipe.recipe_fermentables.map((f, idx) => <li key={idx}>{f.fermentable.name}: {f.amount} Lbs.</li>)}
+              {recipe.recipe_fermentables.map((f, idx) => 
+                <OverlayTrigger
+                  key={idx}
+                  placement="right"
+                  delay={{ show: 250, hide: 250 }}
+                  overlay={
+                    <Popover className="ingredient-tooltip" >
+                      {f.fermentable.description}
+                    </Popover>
+                  }>
+                    <li className="recipe-show-ingredient">{f.fermentable.name}: {f.amount} Lbs.</li>
+                </OverlayTrigger>)}
             </ul>
+
             <h5>Hops</h5>
             <ul className="hops-list">
-              {recipe.recipe_hops.map((h, idx) => <li key={idx}>{h.hop.name}: {h.amount} oz. {h.boil_addition ? "Boil" : "Dry Hopping"} Addition Time: {h.addition_time}  {h.boil_addition ? "Minutes" : "Days"}</li>)}
+              {recipe.recipe_hops.map((h, idx) => 
+                <OverlayTrigger
+                  key={idx}
+                  placement="right"
+                  delay={{ show: 250, hide: 250 }}
+                  overlay={
+                    <Popover className="ingredient-tooltip">
+                      {h.hop.description}
+                    </Popover>
+                  }>
+                    <li className="recipe-show-ingredient" key={idx}>{h.hop.name}: {h.amount} oz. {h.boil_addition ? "Boil" : "Dry Hopping"} Addition Time: {h.addition_time}  {h.boil_addition ? "Minutes" : "Days"}</li>
+                </OverlayTrigger>
+              )}
             </ul>
+
             <h5>Yeast</h5>
             <ul className="yeast-list">
-              {recipe.recipe_yeasts.map((y, idx) => <li key={idx}>{y.yeast.name}: {y.amount} pack.</li>)}
+              {recipe.recipe_yeasts.map((y, idx) => 
+                 <OverlayTrigger
+                  key={idx}
+                  placement="right"
+                  delay={{ show: 250, hide: 250 }}
+                  overlay={
+                    <Popover className="ingredient-tooltip">
+                      {y.yeast.description}
+                    </Popover>
+                 }>
+              <li className="recipe-show-ingredient" key={idx}>{y.yeast.name}: {y.amount} pack.</li>
+              </OverlayTrigger>
+              )}
             </ul>
         </Col>
       </Row>

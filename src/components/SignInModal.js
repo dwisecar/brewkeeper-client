@@ -3,7 +3,6 @@ import { Form, Button, Modal } from "react-bootstrap";
 
 const LogInModal = (props) => {
 
-
   return (
     <Modal
       {...props}
