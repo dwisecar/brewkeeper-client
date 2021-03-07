@@ -33,7 +33,7 @@ const Recipe = ({recipeId}) => {
   }, [])
 
   const fetchRecipe = id => {
-    fetch(`http://localhost:3000/recipes/${id}`)
+    fetch(`https://brewkeeper-api.herokuapp.com/recipes/${id}`)
     .then(res => res.json())
     .then(data => {
       setRecipe(data)
@@ -103,7 +103,7 @@ const Recipe = ({recipeId}) => {
   }
 
   const handleDelete = () => {   
-    fetch(`http://localhost:3000/recipes/${recipe.id}`, {
+    fetch(`https://brewkeeper-api.herokuapp.com/recipes/${recipe.id}`, {
       method: "DELETE", 
       headers: {
         "Content-type": "application/json",

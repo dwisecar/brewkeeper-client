@@ -7,7 +7,7 @@ const Reviews = ({reviews, user, setReviews, setReviewToEdit, handleEditClick}) 
   const handleDelete = review => {
     setReviews(prevReviews => prevReviews.filter(rev => rev.id !== review.id))
 
-    fetch(`http://localhost:3000/reviews/${review.id}`, {
+    fetch(`https://brewkeeper-api.herokuapp.com/reviews/${review.id}`, {
       method: "DELETE", 
       headers: {
         "Content-type": "application/json",

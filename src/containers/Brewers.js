@@ -5,7 +5,7 @@ import BrewerCard from '../components/BrewerCard';
 class Brewers extends React.Component {
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/brewers")
+    fetch("https://brewkeeper-api.herokuapp.com/api/v1/brewers")
       .then(res => res.json())
       .then(data => this.props.setBrewers(data))   
   }

@@ -14,7 +14,7 @@ function Layout() {
   }, [])
 
   const fetchRecipes = () => {
-    fetch("http://localhost:3000/recipes")
+    fetch("https://brewkeeper-api.herokuapp.com/recipes")
     .then(res => res.json())
     .then(data => (
       dispatch({
@@ -26,16 +26,16 @@ function Layout() {
   }
 
   const fetchDetails = () => {
-    fetch("http://localhost:3000/styles").then(res => res.json()).then(data1 => dispatch({type: "SET_STYLES", value: data1}))
-    .then(fetch("http://localhost:3000/fermentables").then(res => res.json()).then(data2 => dispatch({type: "SET_FERMENTABLES", value: data2}))
-    .then(fetch("http://localhost:3000/hops").then(res => res.json()).then(data3 => dispatch({type: "SET_HOPS", value: data3}))
-    .then(fetch("http://localhost:3000/yeasts").then(res => res.json()).then(data4 => dispatch({type: "SET_YEASTS", value: data4})))))
+    fetch("https://brewkeeper-api.herokuapp.com/styles").then(res => res.json()).then(data1 => dispatch({type: "SET_STYLES", value: data1}))
+    .then(fetch("https://brewkeeper-api.herokuapp.com/fermentables").then(res => res.json()).then(data2 => dispatch({type: "SET_FERMENTABLES", value: data2}))
+    .then(fetch("https://brewkeeper-api.herokuapp.com/hops").then(res => res.json()).then(data3 => dispatch({type: "SET_HOPS", value: data3}))
+    .then(fetch("https://brewkeeper-api.herokuapp.com/yeasts").then(res => res.json()).then(data4 => dispatch({type: "SET_YEASTS", value: data4})))))
   }
 
   const userSignIn = (e) => {
     e.preventDefault();
     let form = e.target;
-    fetch("http://localhost:3000/api/v1/login", {
+    fetch("https://brewkeeper-api.herokuapp.com/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ function Layout() {
   const userSignUp = (e) => {
     e.preventDefault();
     let form = e.target;
-    fetch("http://localhost:3000/api/v1/signup", {
+    fetch("https://brewkeeper-api.herokuapp.com/api/v1/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -93,7 +93,7 @@ function Layout() {
 
   //persisting a user when revisitng the web page
   const persistUser = (token) => {
-    fetch("http://localhost:3000/api/v1/persist", {
+    fetch("https://brewkeeper-api.herokuapp.com/api/v1/persist", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

@@ -27,7 +27,7 @@ const RatingForm = ({user, recipe}) => {
   const postRating = () => {
     setUserHasRated(true)
     setTimeout(() => {
-      fetch("http://localhost:3000/ratings", {
+      fetch("https://brewkeeper-api.herokuapp.com/ratings", {
         method: "POST", 
         headers: {
           "Content-type": "application/json",
@@ -47,7 +47,7 @@ const RatingForm = ({user, recipe}) => {
 
   const patchRating = () => {
     setTimeout(() => {
-      fetch(`http://localhost:3000/ratings/${previousRating.id}`, {
+      fetch(`https://brewkeeper-api.herokuapp.com/ratings/${previousRating.id}`, {
         method: "PATCH", 
         headers: {
           "Content-type": "application/json",
