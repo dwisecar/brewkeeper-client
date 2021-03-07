@@ -81,8 +81,8 @@ const RatingForm = ({user, recipe}) => {
         />
       </div>
       {userHasRated ? 
-      <Button onClick={() => patchRating()}>Update Rating</Button>
-      : <Button onClick={() => postRating()}>Submit Rating</Button>}
+      <Button variant="success" onClick={() => patchRating()}>Update Rating</Button>
+      : <Button variant="success" onClick={() => postRating()}>Submit Rating</Button>}
       
     </div>
   )

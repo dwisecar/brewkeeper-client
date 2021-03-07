@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+
 
 const Paginator = ({ totalRecipes, paginate, nextPage, previousPage, currentPage }) => {
 
@@ -12,9 +12,9 @@ const Paginator = ({ totalRecipes, paginate, nextPage, previousPage, currentPage
     <nav>
         <ul className="pagination justify-content-center">
             <li className="page-item">
-                {currentPage > 1 ? 
-                <a className="page-link" onClick={() => previousPage()}>Previous</a> : 
-                null}
+                {currentPage > 1 &&
+                <a className="page-link" onClick={() => previousPage()}>Previous</a> 
+                }
             </li>
             {pageNumbers.map(num => (
                 <li className="page-item" key={num}>
@@ -22,8 +22,7 @@ const Paginator = ({ totalRecipes, paginate, nextPage, previousPage, currentPage
                 </li>
             ))}
             <li className="page-item">
-              {currentPage == pageNumbers.length ? 
-                null :
+              {currentPage !== pageNumbers.length &&
                 <a className="page-link" onClick={() => nextPage()}>Next</a>}
             </li>
         </ul>

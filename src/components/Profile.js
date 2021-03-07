@@ -20,11 +20,11 @@ const Profile = () => {
     <>
       <Container className="user-profile ">
         <Row>
-          <Col>
+          <Col xs={3}>
             <h3>{user.username}</h3><br></br>
           </Col>
           <Col>
-            {user.bio ? <Button onClick={() => setModalShow(true)}>Update Profile</Button> : <Button onClick={() => setModalShow(true)}>Add Bio</Button>}
+            {user.bio ? <Button variant="success" onClick={() => setModalShow(true)}>Update Profile</Button> : <Button variant="success" onClick={() => setModalShow(true)}>Add Bio</Button>}
           </Col>
         </Row>
 
