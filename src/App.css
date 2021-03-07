@@ -101,6 +101,18 @@ body {
   margin: 20px;
 }
 
+.paginator a{
+  color:white;
+  background: rgba(44, 31, 14, 0.73);
+  cursor: pointer;
+}
+
+.paginator a:hover{
+  color:white;
+  background: rgb(99, 74, 43);
+  cursor: pointer;
+}
+
 .card-deck{
   margin-top: 10px;
   margin-left: auto;
@@ -114,6 +126,8 @@ body {
   width: 250px;
   height: 200px;
   line-height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
   color: rgb(51, 24, 1);
   background-color: rgb(255, 255, 255);
   transition: all .5s ease;
@@ -133,7 +147,7 @@ body {
 }
 
 .recipe-card-beer-img{
-  height: 90px;
+  height: 110px;
   width:auto;
 }
 
@@ -142,6 +156,16 @@ body {
   background: linear-gradient(rgba(44, 31, 14, 0.8), rgba(44, 31, 14, .7));
   border-radius: 5px;
   color: white;
+}
+
+.style-link{
+  cursor: pointer;
+  color: bisque;
+}
+
+.style-link:hover{
+  cursor: pointer;
+  color: rgb(233, 197, 153);
 }
 
 .recipe-show-ingredient{

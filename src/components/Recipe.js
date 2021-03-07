@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import RatingForm from './forms/RatingForm'
 import ReviewForm from './forms/ReviewForm'
 import Reviews from './recipe_show/Reviews'
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Stats from './recipe_show/Stats'
 import { connect, useSelector, useDispatch } from "react-redux";
 import brown from '../assets/images/brown.png'
@@ -13,6 +13,7 @@ import pilsner from '../assets/images/pilsner.png'
 import redShort from '../assets/images/red-short.png'
 import redTall from '../assets/images/red-tall.png'
 import stout from '../assets/images/stout.png'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const Recipe = ({recipeId}) => {
 
@@ -74,7 +75,7 @@ const Recipe = ({recipeId}) => {
   const ratingAndReviewForms = () => {
     return(
       <>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
+      <Button variant="success" onClick={() => setModalShow(true)}>
         Leave A Review
       </Button>
       <RatingForm recipe={recipe} user={user} /></>
@@ -121,9 +122,9 @@ const Recipe = ({recipeId}) => {
       <Row>
         <Col className="text-center">
           <h3>{recipe.name}</h3>
-          <Link to={`/styles/${recipe.styles[0].id}`} style={{textDecoration: "none", color: "bisque"}}>
-            <h4>{recipe.styles[0].name}</h4>
-          </Link>
+          <LinkContainer to={`/styles/${recipe.styles[0].id}`} style={{cursor: "pointer"}}>
+            <h4 className="style-link">{recipe.styles[0].name}</h4>
+          </LinkContainer>
           
           <h6>By {recipe.user.username}</h6>
         </Col>
@@ -201,7 +202,7 @@ const Recipe = ({recipeId}) => {
             <p>{recipe.instructions}</p>
           <h5>Notes</h5>
             <p>{recipe.notes}</p>
-            {recipe.user_id === user.id && <Button onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) handleDelete() }}>Delete Recipe</Button>} 
+            {recipe.user_id === user.id && <Button variant="success" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) handleDelete() }}>Delete Recipe</Button>} 
         </Col>
       </Row>
       

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import {useSelector, useDispatch, connect} from 'react-redux'
 
@@ -44,6 +44,7 @@ const BioForm = (props) => {
       }
     )
   }  
+  
   return (
     <Modal
       {...props}
@@ -84,7 +85,7 @@ const BioForm = (props) => {
             </Form.Group>
         </Modal.Body>
         <Modal.Footer style={{justifyContent: "flex-start" }}>
-          <Button type="submit">Submit</Button> 
+          <Button variant="success" type="submit">Submit</Button> 
           
         </Modal.Footer>
       </Form>

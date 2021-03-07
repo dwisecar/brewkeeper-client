@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form, ButtonGroup, Button, Col } from "react-bootstrap";
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 
-function HopField({count, handleRemove, idx, items, handleChange, handleAmountChange, handleTimeChange, handleBoilChange}) {
+function HopField({ idx, items, handleChange, handleAmountChange, handleTimeChange, handleBoilChange}) {
 
   const [boilAddition, setBoilAddition] = useState(true)
 

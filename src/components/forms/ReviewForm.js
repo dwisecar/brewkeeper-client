@@ -87,8 +87,7 @@ const ReviewForm = (props) => {
             </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit">Submit Review</Button> 
-          <Button onClick={props.onHide}>Close</Button>
+          <Button variant="success" type="submit">Submit Review</Button> 
           
         </Modal.Footer>
       </Form>

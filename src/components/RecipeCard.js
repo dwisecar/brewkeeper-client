@@ -57,7 +57,7 @@ const RecipeCard = ({recipe}) => {
             <Card.Text style={{marginBottom: ".1rem"}}>{style}</Card.Text>
             <Card.Img className="recipe-card-beer-img" src={beerImg}/>
           </Card.Body>
-          <Card.Footer>Creator: {recipe.user.username}</Card.Footer>
+          <Card.Footer style={{padding: "5px"}}>Creator: {recipe.user.username}</Card.Footer>
         </Card>
      </LinkContainer>
   )

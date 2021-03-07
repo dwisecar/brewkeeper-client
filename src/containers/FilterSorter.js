@@ -1,6 +1,6 @@
 import React from 'react'
-import {Container, CardDeck, Form, CardColumns} from "react-bootstrap";
-import { connect, useSelector, useDispatch } from "react-redux";
+import {Form} from "react-bootstrap";
+import { connect, useSelector } from "react-redux";
 
 const FilterSorter = ({handleFilter, handleSort}) => {
 
