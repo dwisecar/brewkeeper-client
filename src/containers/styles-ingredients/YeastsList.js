@@ -12,7 +12,7 @@ const YeastsList = ({id}) => {
   }, [])
 
   const fetchDetails = () => {
-    fetch("http://localhost:3000/yeasts")
+    fetch("https://brewkeeper-api.herokuapp.com/yeasts")
     .then(res => res.json())
     .then(data => {
       setYeasts(data)

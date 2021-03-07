@@ -12,7 +12,7 @@ const StylesList = ({id}) => {
   }, [])
 
   const fetchDetails = () => {
-    fetch("http://localhost:3000/styles")
+    fetch("https://brewkeeper-api.herokuapp.com/styles")
     .then(res => res.json())
     .then(data => {
       setStyles(data)

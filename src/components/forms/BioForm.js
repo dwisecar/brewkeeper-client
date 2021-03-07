@@ -15,7 +15,7 @@ const BioForm = (props) => {
     e.preventDefault()  
     const form = e.target
     let token = localStorage.token;
-    fetch(`http://localhost:3000/api/v1/edit`, {
+    fetch(`https://brewkeeper-api.herokuapp.com/api/v1/edit`, {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",

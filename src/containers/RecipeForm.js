@@ -148,7 +148,7 @@ function RecipeForm(){
       ibu: ibu,
       srm: srm
     }
-    fetch("http://localhost:3000/recipes", {
+    fetch("https://brewkeeper-api.herokuapp.com/recipes", {
       method: "POST",
       headers: {
         'Content-type': 'application/json',

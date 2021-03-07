@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
-import Reviews from "../recipe_show/Reviews";
 
 const ReviewForm = (props) => {
 
@@ -14,7 +13,7 @@ const ReviewForm = (props) => {
 
   const postReview = (e) => {
     const form = e.target
-    fetch("http://localhost:3000/reviews", {
+    fetch("https://brewkeeper-api.herokuapp.com/reviews", {
       method: "POST", 
       headers: {
         "Content-type": "application/json",
@@ -38,7 +37,7 @@ const ReviewForm = (props) => {
 
   const patchReview = (e) => {
     const form = e.target
-    fetch(`http://localhost:3000/reviews/${props.reviewToEdit.id}`, {
+    fetch(`https://brewkeeper-api.herokuapp.com/reviews/${props.reviewToEdit.id}`, {
       method: "PATCH", 
       headers: {
         "Content-type": "application/json",

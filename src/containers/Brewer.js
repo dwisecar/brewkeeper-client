@@ -9,7 +9,7 @@ const Brewer = ({brewerId}) => {
   const [brewer, setBrewer] = useState({})
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/v1/brewers/${brewerId}`)
+    fetch(`https://brewkeeper-api.herokuapp.com/api/v1/brewers/${brewerId}`)
       .then(res => res.json())
       .then(data => setBrewer(data))   
   }, [])
