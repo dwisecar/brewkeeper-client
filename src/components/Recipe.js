@@ -14,6 +14,7 @@ import redShort from '../assets/images/red-short.png'
 import redTall from '../assets/images/red-tall.png'
 import stout from '../assets/images/stout.png'
 import { LinkContainer } from 'react-router-bootstrap'
+import EditNotesModal from './forms/EditNotesModal'
 
 const Recipe = ({recipeId}) => {
 
@@ -25,6 +26,8 @@ const Recipe = ({recipeId}) => {
   const [reviewToEdit, setReviewToEdit] = useState(null)
   const [modalShow, setModalShow] = useState(false)
   const [beerImg, setBeerImg] = useState()
+  const [showEditNotes, setShowEditNotes] = useState(false)
+  const [displayNotes, setDisplayNotes] = useState("")
   
   let history = useHistory()
   
@@ -39,6 +42,7 @@ const Recipe = ({recipeId}) => {
       setRecipe(data)
       setReviews(data.reviews)
       beerImage(data.styles.map(style => style.image)[0])
+      setDisplayNotes(data.notes)
     })
   }
 
@@ -201,9 +205,18 @@ const Recipe = ({recipeId}) => {
           <h5>Instructions</h5>
             <p>{recipe.instructions}</p>
           <h5>Notes</h5>
-            <p>{recipe.notes}</p>
-            {recipe.user_id === user.id && <Button variant="success" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) handleDelete() }}>Delete Recipe</Button>} 
+            <p>{displayNotes}</p>
         </Col>
+      </Row>
+
+      <Row>
+        <Col xs={2}>
+          {recipe.user_id === user.id && <Button variant="success" onClick={() => setShowEditNotes(true)}>Edit Notes</Button>} 
+        </Col>
+        <Col>
+          {recipe.user_id === user.id && <Button variant="success" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) handleDelete() }}>Delete Recipe</Button>} 
+        </Col>
+
       </Row>
       
       <Row className="reviews-box border rounded">
@@ -214,7 +227,7 @@ const Recipe = ({recipeId}) => {
             { user !== false && recipe.user_id !== user.id && ratingAndReviewForms()}
 
             <ReviewForm show={modalShow} onHide={() => setModalShow(false)} recipe={recipe} user={user} addReview={addReview} reviewToEdit={reviewToEdit} editReview={editReview} reviews={reviews}/>
-    
+            <EditNotesModal show={showEditNotes} onHide={() => setShowEditNotes(false)} recipe={recipe} user={user} setDisplayNotes={setDisplayNotes}/>     
         </Col>
       </Row>
       </Container>

@@ -67,7 +67,6 @@ function RecipeForm(){
     let chosenYeast = yeasts.find(yeast => yeast.id == selectedYeasts[0].id)
     const attenuation = chosenYeast ? (chosenYeast.attenuation_min + chosenYeast.attenuation_max) / 2 : 75
     const potential = chosenFermentables.map(f => parseFloat(f.amount) * ((parseFloat(f.potential) * 1000) - 1000))
-    console.log(chosenFermentables, potential)
     const totalPotential = potential.reduce((a, b) => a + b)
     const efficiency = (totalPotential * 0.72) * (attenuation * 0.01)
     const preBoilOG = ((efficiency/batchSize) / 1000) + 1
@@ -208,7 +207,7 @@ function RecipeForm(){
               </Col>
             </Form.Row>
 
-            <Form.Row className="border-top" style={{padding:"5px"}}>
+            <Form.Row className="border-top" style={{padding:"5px", display: "block"}}>
             <Form.Group controlId="formBasicFermentables">
               <h5>Fermentables</h5>
                 <MultiInputs 
@@ -219,7 +218,7 @@ function RecipeForm(){
             </Form.Group>
             </Form.Row>
 
-            <Form.Row className="border-top" style={{padding:"5px"}}>
+            <Form.Row className="border-top" style={{padding:"5px", display: "block"}}>
             <Form.Group controlId="formBasicHops">
               <h5>Hops</h5>
                 <HopInputs 
@@ -230,7 +229,7 @@ function RecipeForm(){
             </Form.Group>
             </Form.Row>
 
-            <Form.Row className="border-top border-bottom" style={{padding:"5px"}}>
+            <Form.Row className="border-top border-bottom" style={{padding:"5px", display: "block"}}>
             <Form.Group controlId="formBasicYeast">
               <h5>Yeast</h5>
                 <YeastInputs

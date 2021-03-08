@@ -1,18 +1,30 @@
 import React, { useState } from "react";
-import { Form, ButtonGroup, Button, Col } from "react-bootstrap";
+import { Form, Col } from "react-bootstrap";
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
+import Select from 'react-select';
 
 function HopField({ idx, items, handleChange, handleAmountChange, handleTimeChange, handleBoilChange}) {
 
   const [boilAddition, setBoilAddition] = useState(true)
 
+  const options = items => {
+    let arr = []
+    items.forEach(element => {
+      arr = [...arr, {label: element.name, value: element.id}]
+    });
+    return arr
+  }
+
   return (
     <Form.Row>
       <Col xs={4}>
         <Form.Label>Type</Form.Label>
-          <Form.Control as="select" name="multi-select-name" onChange={(e) => handleChange(idx, e)}>
-          {items.map(item => <option value={item.id}>{item.name}</option>)}
-          </Form.Control>
+        <Select
+          className='select-input-new'
+          options={options(items)}
+          onChange={(e) => handleChange(idx, e)}
+          placeholder="Select A Hop..."
+        />
       </Col>
 
       <Col xs={2}>

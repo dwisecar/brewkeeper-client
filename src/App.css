@@ -198,7 +198,8 @@ body {
 }
 
 .review{
-  padding: 5px;
+  padding: 15px;
+  margin: 0;
   vertical-align: middle;
 }
 
@@ -292,4 +293,8 @@ body {
 
 #beer-cover-shape{
   filter: invert(1)
+}
+
+.select-input-new{
+  color: black;
 }

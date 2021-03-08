@@ -1,7 +1,5 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
 import YeastField from "./YeastField";
-import Icon from '@material-ui/core/Icon';
 
 function YeastInputs({selected, setSelected, items}) { 
 
@@ -9,7 +7,7 @@ function YeastInputs({selected, setSelected, items}) {
     const values = [...selected]
     values.splice(i, 1, {
       ...values[i],
-      id: e.target.value
+      id: e.value
     })
     setSelected(values)  
   }

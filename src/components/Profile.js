@@ -16,6 +16,10 @@ const Profile = () => {
     user.bio ? setBio(user.bio) : setBio(null)
   }, [])
 
+  const handleDeleteAccount = () => {
+    
+  }
+
   return(
     <>
       <Container className="user-profile ">
