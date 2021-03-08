@@ -106,6 +106,7 @@ function RecipeForm(){
     for (const h of selectedHops) {
       if(h.boilAddition){
         let hop = hops.find(herp => herp.id == h.id)
+        if (!hop){hop = hops.find(h => h.name === "Admiral")}
         hop = {
           ...hop, 
           amount: parseFloat(h.amount), 

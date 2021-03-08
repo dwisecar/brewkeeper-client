@@ -42,12 +42,9 @@ body {
 
 .sidebar-header{
   padding: 2px;
-  font-weight: bold;
   letter-spacing: 1px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   align-self: center;
+  font-weight: bold;
 }
 
 .brewkeeper-logo {
