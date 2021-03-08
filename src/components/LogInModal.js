@@ -45,7 +45,7 @@ const LogInModal = (props) => {
        
         </Modal.Body>
         <Modal.Footer style={{justifyContent: "flex-start" }}>
-          <Button variant="primary" type="submit">Submit</Button>
+          <Button variant="success" type="submit">Submit</Button>
           
           
         </Modal.Footer>

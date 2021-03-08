@@ -60,6 +60,7 @@ function RecipeForm(){
     let chosenFermentables = []
     for (const f of selectedFermentables) {
       let fermentable = fermentables.find(fer => fer.id == f.id)
+      if(!fermentable){fermentable = fermentables.find(fer => fer.name == "2-Row Pale Malt")}
       fermentable = {...fermentable, amount: f.amount}
         chosenFermentables = [...chosenFermentables, fermentable]
       }
