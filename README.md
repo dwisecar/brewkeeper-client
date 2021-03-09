@@ -1,71 +1,38 @@
-# Getting Started with Create React App
+# BrewKeeper
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repo is the frontend for the BrewKeeper app. This app allows users to create and share homebrew recipes.
 
-## Available Scripts
+<a href="https://quirky-bell-3360e2.netlify.app/">Live Demo</a>
 
-hop by Kantor Tegalsari from the Noun Project
-<span>Photo by <a href="https://unsplash.com/@markusspiske?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Markus Spiske</a> on <a href="https://unsplash.com/s/photos/hops?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>
+## Installation
 
-### `yarn start`
+- Fork and clone this repository. 
+- Enter `npm install` into the terminal.
+- Once the dependencies are installed, enter `npm start` into the terminal to start the front-end server.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Using the app
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- From the main page, you can browse through the recipes posted by users. 
+- There are filter and sorting options available on the right side bar. 
+- Recipes can be filtered by:
+  - Style
+  - Fermentable ingredients
+  - Hop ingredients
+  - Yeast ingredients
+- Recipes can be sorted by:
+  - Creation date
+  - Alcohol by volume
+  - Highest Rating 
+- Clicking on a recipe will display details including ingredients, instructions, and statistics about that recipe.
+- The sidebar has a link to see all Brewers on the side and can click to see their profile pages with a bio and all their recipes.
+- The sidebar also has links to see detail pages of all the styles of beer the app has along with all ingredients with stats and descriptions.  
 
-### `yarn test`
+## Creating an account
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Create an account by clicking 'Sign Up' in the upper right corner.
+- When logged in, a user can leave reviews for a recipe as well as give a rating 1 - 10.
+- A user can also create a recipe using the sidebar link.
 
-### `yarn build`
+### Credits
+Hop Icon by Kantor Tegalsari from the Noun Project.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

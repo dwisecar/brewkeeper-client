@@ -105,7 +105,7 @@ const Recipe = ({recipeId}) => {
   }
 
   let avgRating = () => {    
-    return (recipe.ratings.map(r => r.stars).reduce((acc, i) => acc + i) / recipe.ratings.length).toFixed(2) 
+    return (ratings.map(r => r.stars).reduce((acc, i) => acc + i) / ratings.length).toFixed(2) 
   }
 
   const handleDelete = () => {   
@@ -144,7 +144,7 @@ const Recipe = ({recipeId}) => {
           <img src={beerImg} alt="beer-style"/>
         </Col>
         <Col>
-          {recipe.ratings.length !== 0 ? <h5>Average Rating: {avgRating()}</h5> :
+          {ratings.length !== 0 ? <h5>Average Rating: {avgRating()}</h5> :
           <h5>Average Rating: 0</h5>}
         </Col>
       </Row>

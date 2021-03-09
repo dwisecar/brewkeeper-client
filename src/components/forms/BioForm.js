@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Form, Button, Modal } from "react-bootstrap";
 import {useSelector, useDispatch, connect} from 'react-redux'
@@ -8,8 +8,12 @@ const BioForm = (props) => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
-  const [bioText, setBioText] = useState(props.user.bio)
+  const [bioText, setBioText] = useState(user.bio)
   const [usernameText, setUsernameText] = useState(user.username)
+  useEffect(() => {
+    setBioText(user.bio)
+    setUsernameText(user.username)
+  }, [user])
 
   const patchProfile = (e) => {
     e.preventDefault()  

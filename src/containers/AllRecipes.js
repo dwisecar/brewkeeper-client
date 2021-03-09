@@ -7,10 +7,12 @@ import Paginator from './Paginator'
 
 const AllRecipes = () => {
 
+  //filter and sort hooks
   const [filter, setFilter] = useState({style: "All", fermentable: "All", hop: "All", yeast: "All"})
   const [filteredRecipes, setFilteredRecipes] = useState([])
   const [sort, setSort] = useState("recent")
  
+  //pagination hooks
   const [recipesPerPage, setRecipesPerPage] = useState(12)
   const [currentPage, setCurrentPage] = useState(1)
   const [currentRecipes, setCurrentRecipes] = useState([])
@@ -20,6 +22,7 @@ const AllRecipes = () => {
   
   const recipes = useSelector(state => state.recipes)
 
+  //filterizer runs when filter changes and when recipes load
   useEffect(() => {
     filterizer(sort)
   }, [filter, recipes])
@@ -36,6 +39,7 @@ const AllRecipes = () => {
     filterizer(e.target.value)
   }
 
+  //filterizer takes arg for order to sort results in. Finds recipes based on the four filter options.
   function filterizer (e) {
     setCurrentPage(1)
     let filteredRecipeList = recipes
@@ -74,6 +78,7 @@ const AllRecipes = () => {
     }, 500);
   }
 
+  //pagination functions
   const paginate = pageNum => setCurrentPage(pageNum)
   const nextPage = () => setCurrentPage(currentPage + 1)
   const previousPage = () => setCurrentPage(currentPage - 1)
@@ -85,7 +90,7 @@ const AllRecipes = () => {
     <>
     <Container className="all-recipes">
       <h3>All Recipes</h3>
-        <CardDeck>             
+        <CardDeck >             
           {currentRecipes.map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}           
         </CardDeck>
       <Row className="paginator">
