@@ -33,6 +33,12 @@ export const reducer = (state, action) => {
 				...state,
 				recipes: [action.value, ...state.recipes]
 			};
+		case 'EDIT_RECIPE':
+			const newEditRecipes = state.recipes.filter(r => r.id !== action.value.id)
+			return {
+				...state,
+				recipes: [...newEditRecipes, action.value]
+			};
 		case 'DELETE_RECIPE':
 			const newRecipes = state.recipes.filter(r => r.id !== action.value.id)
 			return {

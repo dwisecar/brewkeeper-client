@@ -1,32 +1,38 @@
-import React, { useState } from "react";
-import { Form, Button, Col } from "react-bootstrap";
+import React from "react";
+import { Form, Col } from "react-bootstrap";
+import Select from 'react-select';
 
-
-function MultiField({
-  handleRemove, 
+function MultiField({ 
   idx, 
   items, 
   handleChange, 
-  handleAmountChange, 
-  count,
-  field}) 
+  handleAmountChange}) 
   {
 
+  const options = items => {
+    let arr = []
+    items.forEach(element => {
+      arr = [...arr, {label: `${element.name} | ${element.srm_id}°L | ${element.potential}`, value: element.id}]
+    });
+    return arr
+  }
+  
   return (
-    <>
-    <Form.Row id={`multi-row-${idx}`}>
+      <Form.Row id={`multi-row-${idx}`}>
       <Col xs={7}>
         <Form.Label>Type</Form.Label>
-        <Form.Control as="select" name="multi-select-name" defaultValue={field} onChange={(e) => handleChange(idx, e)}>
-          {items.map(item => <option value={item.id}>{item.name}</option>)}
-        </Form.Control>
+        <Select
+        className='select-input-new'
+          options={options(items)}
+          onChange={(e) => handleChange(idx, e)}
+          placeholder="Select A Fermentable..."
+        />
       </Col>
-      <Col xs={3}>
+      <Col xs={2}>
         <Form.Label>Lbs</Form.Label>
         <Form.Control type="number" step="0.01" min="0" name="multi-select-amount" onChange={(e) => handleAmountChange(idx, e)}/>
       </Col>
       </Form.Row>
-    </>
   )
 
 }

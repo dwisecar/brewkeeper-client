@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import hops from '../assets/images/hops-bar.png'
 
 const BrewerCard = ({brewer}) => {
 
@@ -12,12 +13,12 @@ const BrewerCard = ({brewer}) => {
   return(
     <LinkContainer to={`/brewers/${brewer.id}`} style={{cursor: "pointer"}}>
     <Card className="recipe-card shadow">
-      <Card.Body>
-        <Card.Title>{brewer.username}</Card.Title>
-        <p>{brewer.bio && brewer.bio}</p>
+      <Card.Body style={{textAlign: "center"}}>
+        <Card.Title >{brewer.username}</Card.Title>
+        <img style={{width: "200px", marginBottom: "15px"}} src={hops} alt="Hops"/>
         <p>User since: {brewerCreatedDate(brewer.created_at)}</p>
       </Card.Body>
-      <Card.Footer>
+      <Card.Footer style={{textAlign: "center"}}>
         Recipes Created: {brewer.recipes.length}
       </Card.Footer>
     </Card>

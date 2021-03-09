@@ -14,7 +14,7 @@ const Profile = () => {
   
   useEffect(() => {
     user.bio ? setBio(user.bio) : setBio(null)
-  }, [])
+  }, [user])
 
   return(
     <>
@@ -33,7 +33,7 @@ const Profile = () => {
         
         <div>
           <h5>Recipes</h5>
-            <CardDeck>
+            <CardDeck style={{gridTemplateColumns: "repeat(4, 1fr)"}}>  
               {recipes.filter(r => r.user_id === user.id)
               .map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}
             </CardDeck>

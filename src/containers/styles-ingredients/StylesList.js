@@ -8,17 +8,16 @@ const StylesList = ({id}) => {
   const [selectedIngredient, setSelectedIngredient] = useState()
 
   useEffect(() => {
-    fetchDetails()
-  }, [])
-
-  const fetchDetails = () => {
+    const fetchDetails = () => {
     fetch("https://brewkeeper-api.herokuapp.com/styles")
     .then(res => res.json())
     .then(data => {
       setStyles(data)
-      setSelectedIngredient(data[id])
+      setSelectedIngredient(data[id - 1])
     })
   }
+    fetchDetails()
+  }, [])
 
   return (
     <Container>
@@ -28,6 +27,7 @@ const StylesList = ({id}) => {
         <ListGroup className="list-items">
           {styles.map(i => <ListGroup.Item 
             className="list-item"
+            key={i.id}
             onClick={() => setSelectedIngredient(i)}>{i.name}</ListGroup.Item>)}
         </ListGroup>
         </Col>

@@ -20,7 +20,7 @@ const Brewer = ({brewerId}) => {
         <h3>{brewer.username}</h3>
         {<><h5>Bio</h5><p>{brewer.bio}</p></>}<br></br>
         <h5>Recipes</h5>
-        <CardDeck>
+        <CardDeck style={{gridTemplateColumns: "repeat(4, 1fr)"}}>  
           {recipes.filter(r => r.user_id === brewer.id)
           .map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}
         </CardDeck>

@@ -19,20 +19,23 @@ const Reviews = ({reviews, user, setReviews, setReviewToEdit, handleEditClick}) 
   return(
     <Container className="reviews">
       {reviews.map(review => (
-        <Row className="review" key={review.id} className="border">
-          <Col>
-            <p>{review.user.username}: {review.content}</p> 
+        <Row key={review.id} className="border review">
+          <Col style={{alignSelf: "center"}}>
+            <p style={{margin: "0"}}>{review.user.username}: {review.content}</p> 
           </Col>
           {review.user_id === user.id && <>
             <Col xs={1}>
-              <Button onClick={() => (
-              setReviewToEdit(review),
-              handleEditClick()
-              )}>Edit</Button>
+              <Button 
+              
+                variant="success"
+                onClick={() => (
+                  setReviewToEdit(review),
+                  handleEditClick()
+                  )}>Edit</Button>
             </Col>
           
             <Col xs={1}>
-              <Button onClick={() => handleDelete(review)}>X</Button>
+              <Button variant="success" onClick={() => handleDelete(review)}>X</Button>
             </Col></>}
         </Row>))}
     </Container>

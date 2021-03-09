@@ -21,7 +21,7 @@ function MultiInputs({selected, setSelected, items}) {
     const values = [...selected]
     values.splice(i, 1, {
       ...values[i],
-      id: e.target.value
+      id: e.value
     })
     setSelected(values)  
   }
@@ -37,7 +37,7 @@ function MultiInputs({selected, setSelected, items}) {
 
   
   return (
-    <div>
+    <div className="multi-inputs">
         {selected.map((field, idx) => {
           return(
               <div key={`${field}-${idx}`}>

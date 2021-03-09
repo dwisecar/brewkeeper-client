@@ -7,10 +7,12 @@ import Paginator from './Paginator'
 
 const AllRecipes = () => {
 
+  //filter and sort hooks
   const [filter, setFilter] = useState({style: "All", fermentable: "All", hop: "All", yeast: "All"})
   const [filteredRecipes, setFilteredRecipes] = useState([])
   const [sort, setSort] = useState("recent")
  
+  //pagination hooks
   const [recipesPerPage, setRecipesPerPage] = useState(12)
   const [currentPage, setCurrentPage] = useState(1)
   const [currentRecipes, setCurrentRecipes] = useState([])
@@ -20,6 +22,7 @@ const AllRecipes = () => {
   
   const recipes = useSelector(state => state.recipes)
 
+  //filterizer runs when filter changes and when recipes load
   useEffect(() => {
     filterizer(sort)
   }, [filter, recipes])
@@ -36,14 +39,15 @@ const AllRecipes = () => {
     filterizer(e.target.value)
   }
 
+  //filterizer takes arg for order to sort results in. Finds recipes based on the four filter options.
   function filterizer (e) {
     setCurrentPage(1)
     let filteredRecipeList = recipes
-    for (const [k,v] of Object.entries(filter)) {
-      if(k === "style") {filter.style !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.styles[0].id == filter.style))}
-      if(k === "fermentable") {filter.fermentable !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_fermentables.some(re => re.fermentable_id == filter.fermentable)))}
-      if(k === "hop") {filter.hop !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_hops.some(re => re.hop_id == filter.hop)))}
-      if(k === "yeast") {filter.yeast !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_yeasts.some(re => re.yeast_id == filter.yeast)))}     
+    for (const [k] of Object.entries(filter)) {
+      if(k === "style") {filter.style !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.styles[0].id === parseInt(filter.style)))}
+      if(k === "fermentable") {filter.fermentable !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_fermentables.some(re => re.fermentable_id === parseInt(filter.fermentable))))}
+      if(k === "hop") {filter.hop !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_hops.some(re => re.hop_id === parseInt(filter.hop))))}
+      if(k === "yeast") {filter.yeast !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_yeasts.some(re => re.yeast_id === parseInt(filter.yeast))))}     
     }
     switch (e) {
       case "oldest":
@@ -55,6 +59,11 @@ const AllRecipes = () => {
         const sortedRated = filteredRecipeList.sort((a,b) => b.average_rating - a.average_rating)  
         setFilteredRecipes(sortedRated)
         setCurrentRecipes(sortedRated.slice(indexOfFirstPost, indexOfLastPost))
+        break;
+      case "abv":
+        const sortedAbv = filteredRecipeList.sort((a,b) => b.abv - a.abv)  
+        setFilteredRecipes(sortedAbv)
+        setCurrentRecipes(sortedAbv.slice(indexOfFirstPost, indexOfLastPost))
         break;
       case "recent":
         const sortedRecent = filteredRecipeList.sort((a,b) => Date.parse(b.created_at) - Date.parse(a.created_at))
@@ -69,6 +78,7 @@ const AllRecipes = () => {
     }, 500);
   }
 
+  //pagination functions
   const paginate = pageNum => setCurrentPage(pageNum)
   const nextPage = () => setCurrentPage(currentPage + 1)
   const previousPage = () => setCurrentPage(currentPage - 1)
@@ -80,7 +90,7 @@ const AllRecipes = () => {
     <>
     <Container className="all-recipes">
       <h3>All Recipes</h3>
-        <CardDeck>             
+        <CardDeck >             
           {currentRecipes.map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}           
         </CardDeck>
       <Row className="paginator">

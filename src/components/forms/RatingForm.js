@@ -1,22 +1,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-import Slider from 'react-rangeslider'
+import { Container, Row } from "react-bootstrap";
 import 'react-rangeslider/lib/index.css'
 
+import { makeStyles } from '@material-ui/core/styles';
+import Rating from '@material-ui/lab/Rating';
+import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
+import PropTypes from 'prop-types';
 
-
-const RatingForm = ({user, recipe}) => {
+const RatingForm = ({user, recipe, ratings, setRatings}) => {
 
   const [rating, setRating] = useState(0)
   const [userHasRated, setUserHasRated] = useState(false)
   const [previousRating, setPreviousRating] = useState({})
+  const [hover, setHover] = useState(-1);
 
   useEffect(() => {
-    const userRating = user.ratings.filter(rating => rating.recipe_id === recipe.id) 
+    const userRating = ratings.filter(rating => rating.user_id === user.id) 
     userRating.length !== 0 ? handleUserPrevRating(userRating) : setUserHasRated(false)
     
-  }, [])
+  }, [ratings])
 
   const handleUserPrevRating = rating => {
     setUserHasRated(true)
@@ -24,7 +27,7 @@ const RatingForm = ({user, recipe}) => {
     setPreviousRating(rating[0])
   }
 
-  const postRating = () => {
+  const postRating = (val) => {
     setUserHasRated(true)
     setTimeout(() => {
       fetch("https://brewkeeper-api.herokuapp.com/ratings", {
@@ -36,16 +39,17 @@ const RatingForm = ({user, recipe}) => {
         body: JSON.stringify({
           user_id: user.id,
           recipe_id: recipe.id,
-          value: rating
+          value: parseInt(val)
         })
       }).then(res => res.json())
       .then(rating => {
         setPreviousRating(rating)
+        setRatings([...ratings, rating])
       })
     }, 1000);
   }  
 
-  const patchRating = () => {
+  const patchRating = (val) => {
     setTimeout(() => {
       fetch(`https://brewkeeper-api.herokuapp.com/ratings/${previousRating.id}`, {
         method: "PATCH", 
@@ -57,34 +61,76 @@ const RatingForm = ({user, recipe}) => {
           id: previousRating.id,
           user_id: user.id,
           recipe_id: recipe.id,
-          value: rating
+          value: parseInt(val)
         })
       }).then(res => res.json())
       .then(rating => {
         setPreviousRating(rating)
+        const prevRatings = ratings.filter(r => r.id !== rating.id)
+        setRatings([...prevRatings, rating])
       })
     }, 1000);
     
   }  
 
-  return (
-    <div className="my-5">
-      <label htmlFor="rating-slider">Rating: {rating} </label><br></br>
+  const setSliderRating = e => {
+    !userHasRated ? postRating(e.target.value) : patchRating(e.target.value)
+  }
+
+  const useStyles = makeStyles({
+    root: {
+      width: 200,
+      display: 'flex',
+      alignItems: 'center',
+    },
+  })
+
+  const classes = useStyles()
+
+  const customIcons = {
+    1: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    2: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    3: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    4: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    5: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    6: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    7: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    8: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    9: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
+    10: {icon: <LocalDrinkIcon/>, label: "Hop Image" }
+  }
+
+  function IconContainer(props) {
+    const { value, ...other } = props;
+    return <span {...other}>{customIcons[value].icon}</span>;
+  }
   
-      <div className='slider' style={{width: "150px"}}>
-        <Slider
-          min={0}
-          max={10}
-          step={1}
-          value={rating}
-          onChange={setRating}
-        />
-      </div>
-      {userHasRated ? 
-      <Button variant="success" onClick={() => patchRating()}>Update Rating</Button>
-      : <Button variant="success" onClick={() => postRating()}>Submit Rating</Button>}
-      
-    </div>
+  IconContainer.propTypes = {
+    value: PropTypes.number.isRequired,
+  };
+
+  return (
+    <Container style={{marginTop: "15px"}}>
+      <Row>
+        <label>Your Rating: {rating} </label>
+      </Row>
+        <div className={classes.root}>
+          <Rating
+            name="hover-feedback"
+            value={rating}
+            precision={1}
+            max={10}
+            IconContainerComponent={IconContainer}
+            onChange={(event, newValue) => {
+              setRating(newValue)
+              setSliderRating(event)
+            }}
+            onChangeActive={(event, newHover) => {
+              setHover(newHover)
+            }}
+          />
+        </div>  
+    </Container>
   )
 }
 export default RatingForm

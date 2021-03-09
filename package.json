@@ -22,6 +22,7 @@
     "react-router-bootstrap": "^0.25.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.0",
+    "react-select": "^4.2.1",
     "react-slider-component": "0.0.5",
     "redux": "^4.0.5",
     "sass-loader": "^10.1.1",

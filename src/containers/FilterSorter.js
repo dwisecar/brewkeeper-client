@@ -20,7 +20,7 @@ const FilterSorter = ({handleFilter, handleSort}) => {
           handleFilter(e, "style")
           }}>
           <option value={null}>All</option>
-          {styles.map(item => <option value={item.id}>{item.name}</option>)}
+          {styles.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
         </Form.Control>
       </Form.Row><br></br>
 
@@ -31,7 +31,7 @@ const FilterSorter = ({handleFilter, handleSort}) => {
           handleFilter(e, "fermentable")
           }}>
           <option value={null}>All</option>
-          {fermentables.map(item => <option value={item.id}>{item.name}</option>)}
+          {fermentables.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
         </Form.Control>
       </Form.Row><br></br>
 
@@ -42,7 +42,7 @@ const FilterSorter = ({handleFilter, handleSort}) => {
           handleFilter(e, "hop")
           }}>
           <option value={null}>All</option>
-          {hops.map(item => <option value={item.id}>{item.name}</option>)}
+          {hops.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
         </Form.Control>
       </Form.Row><br></br>
 
@@ -53,7 +53,7 @@ const FilterSorter = ({handleFilter, handleSort}) => {
           handleFilter(e, "yeast")
           }}>
           <option value={null}>All</option>
-          {yeasts.map(item => <option value={item.id}>{item.name}</option>)}
+          {yeasts.map(item => <option key={item.id} value={item.id}>{item.name}</option>)}
         </Form.Control>
       </Form.Row><br></br>
 
@@ -62,6 +62,7 @@ const FilterSorter = ({handleFilter, handleSort}) => {
         <Form.Control as="select" name="select-name" onChange={(e) => handleSort(e)}>
           <option value={"recent"}>Most Recent</option>
           <option value={"rated"}>Highest Rated</option>
+          <option value={"abv"}>Highest ABV</option>
           <option value={"oldest"}>Oldest</option>
         </Form.Control>
       </Form.Row>

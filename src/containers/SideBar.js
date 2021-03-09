@@ -20,7 +20,7 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
       rtl={rtl}
       collapsed={collapsed}
       toggled={toggled}
-      breakPoint="md"
+      breakPoint="xs"
       onToggle={handleToggleSidebar}
     >
       <SidebarHeader className="sidebar-header">
