@@ -29,6 +29,11 @@ body {
   position: relative;
 }
 
+.navbar-col{
+  background: linear-gradient(rgba(44, 31, 14, .73), rgba(44, 31, 14, .45));
+  padding:15px;
+}
+
 .navbar-link a {
   color: white;
 }

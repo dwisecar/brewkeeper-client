@@ -1,28 +1,25 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Button, Container, Row } from "react-bootstrap";
-import Slider from 'react-rangeslider'
+import { Container, Row } from "react-bootstrap";
 import 'react-rangeslider/lib/index.css'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
-import Box from '@material-ui/core/Box';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
 import PropTypes from 'prop-types';
 
-const RatingForm = ({user, recipe}) => {
+const RatingForm = ({user, recipe, ratings, setRatings}) => {
 
   const [rating, setRating] = useState(0)
   const [userHasRated, setUserHasRated] = useState(false)
   const [previousRating, setPreviousRating] = useState({})
-  const [value, setValue] = useState(2);
   const [hover, setHover] = useState(-1);
 
   useEffect(() => {
-    const userRating = user.ratings.filter(rating => rating.recipe_id === recipe.id) 
+    const userRating = ratings.filter(rating => rating.user_id === user.id) 
     userRating.length !== 0 ? handleUserPrevRating(userRating) : setUserHasRated(false)
     
-  }, [])
+  }, [ratings])
 
   const handleUserPrevRating = rating => {
     setUserHasRated(true)
@@ -47,6 +44,7 @@ const RatingForm = ({user, recipe}) => {
       }).then(res => res.json())
       .then(rating => {
         setPreviousRating(rating)
+        setRatings([...ratings, rating])
       })
     }, 1000);
   }  
@@ -68,6 +66,8 @@ const RatingForm = ({user, recipe}) => {
       }).then(res => res.json())
       .then(rating => {
         setPreviousRating(rating)
+        const prevRatings = ratings.filter(r => r.id !== rating.id)
+        setRatings([...prevRatings, rating])
       })
     }, 1000);
     

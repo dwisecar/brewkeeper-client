@@ -14,10 +14,17 @@ import StylesList from './styles-ingredients/StylesList';
 import FermentablesList from './styles-ingredients/FermentablesList';
 import HopsList from './styles-ingredients/HopsList';
 import YeastsList from './styles-ingredients/YeastsList';
+import Icon from '@material-ui/core/Icon';
 
-const MainContainer = props => {
+const MainContainer = ({ 
+  collapsed,
+  rtl,
+  image,
+  handleToggleSidebar,
+  handleCollapsedChange,
+  handleRtlChange,
+  handleImageChange,}) => {
 
-  const user = useSelector(state => state.user)
   const recipes = useSelector(state => state.recipes)
   const styles = useSelector(state => state.styles)
   const fermentables = useSelector(state => state.fermentables)
@@ -29,55 +36,50 @@ const MainContainer = props => {
 
     return(
         <div className='main'>
-          <Container className="main-container" fluid >        
+          <Container className="main-container" fluid >      
             <Switch>
               <Route exact path="/" render={() => (
                 <AllRecipes 
                   recipes={recipes}
                 />)}
               />
-              {/* <Route path="/profile" component={Profile}/> */}
-              <Route path="/profile" render={() => <Profile notReduxUser={props.notReduxUser}/>}/> 
+              <Route path="/profile" component={Profile}/> 
               <Route exact path="/brewers" render={() => <Brewers brewers={brewers} setBrewers={setBrewers}/>}/>
               
               <Route exact path="/styles" component={StylesList}/>
               <Route path="/styles/:slug" render={(routerProps) => {
-                let style = styles.find(s => s.id == routerProps.match.params.slug)
+                let style = styles.find(s => s.id === parseInt(routerProps.match.params.slug))
+                console.log(style)
                 return (style ? <StylesList id={style.id} /> : null)
               }}/>
 
               <Route path="/fermentables" component={FermentablesList}/>
               <Route path="/fermentables/:slug" render={(routerProps) => {
-                let fermentable = fermentables.find(s => s.id == routerProps.match.params.slug)
+                let fermentable = fermentables.find(s => s.id === parseInt(routerProps.match.params.slug))
                 return (fermentable ? <FermentablesList id={fermentable.id} /> : null)
               }}/>
 
               <Route exact path="/hops" component={HopsList}/>
               <Route path="/hops/:slug" render={(routerProps) => {
-                let hop = hops.find(s => s.id == routerProps.match.params.slug)
+                let hop = hops.find(s => s.id === parseInt(routerProps.match.params.slug))
                 return (hop ? <HopsList id={hop.id} /> : null)
               }}/>
 
               <Route exact path="/yeast" component={YeastsList}/>
               <Route path="/yeast/:slug" render={(routerProps) => {
-                let yeast = yeasts.find(s => s.id == routerProps.match.params.slug)
+                let yeast = yeasts.find(s => s.id === parseInt(routerProps.match.params.slug))
                 return (yeast ? <YeastsList id={yeast.id} /> : null)
               }}/>
               
-              <Route path="/recipes/new" render={() => (
-                <RecipeForm 
-                  user={user} 
-                  addNewRecipe={props.addNewRecipe}
-                />)}
-              />
+              <Route path="/recipes/new" component={RecipeForm}/>
 
               <Route path="/recipes/:slug" render={(routerProps) => {
-                let recipe = recipes.find(recipe => recipe.id == routerProps.match.params.slug)
+                let recipe = recipes.find(recipe => recipe.id === parseInt(routerProps.match.params.slug))
                 return (recipe ? <Recipe recipeId={recipe.id} /> : null)
               }}/>
 
               <Route path="/brewers/:slug" render={(routerProps) => {
-                let brewer = brewers.find(brewer => brewer.id == routerProps.match.params.slug)
+                let brewer = brewers.find(brewer => brewer.id === parseInt(routerProps.match.params.slug))
                 return <Brewer brewerId={brewer.id}/>
               }}/>
 
@@ -86,7 +88,7 @@ const MainContainer = props => {
             </Switch>
           </Container>
         </div>      
-    )
+    ) 
 }
 
 const mapStateToProps = state => {

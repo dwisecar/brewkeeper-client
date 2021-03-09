@@ -22,6 +22,7 @@ const Recipe = ({recipeId}) => {
   const user = useSelector(state => state.user)
 
   const [reviews, setReviews] = useState([])
+  const [ratings, setRatings] = useState([])
   const [recipe, setRecipe] = useState(null)
   const [reviewToEdit, setReviewToEdit] = useState(null)
   const [modalShow, setModalShow] = useState(false)
@@ -41,6 +42,7 @@ const Recipe = ({recipeId}) => {
     .then(data => {
       setRecipe(data)
       setReviews(data.reviews)
+      setRatings(data.ratings)
       beerImage(data.styles.map(style => style.image)[0])
       setDisplayNotes(data.notes)
     })
@@ -82,7 +84,7 @@ const Recipe = ({recipeId}) => {
       <Button variant="success" onClick={() => setModalShow(true)}>
         Leave A Review
       </Button>
-      <RatingForm recipe={recipe} user={user} /></>
+      <RatingForm recipe={recipe} user={user} ratings={ratings} setRatings={setRatings}/></>
     )
   }
 

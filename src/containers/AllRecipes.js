@@ -39,11 +39,11 @@ const AllRecipes = () => {
   function filterizer (e) {
     setCurrentPage(1)
     let filteredRecipeList = recipes
-    for (const [k,v] of Object.entries(filter)) {
-      if(k === "style") {filter.style !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.styles[0].id == filter.style))}
-      if(k === "fermentable") {filter.fermentable !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_fermentables.some(re => re.fermentable_id == filter.fermentable)))}
-      if(k === "hop") {filter.hop !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_hops.some(re => re.hop_id == filter.hop)))}
-      if(k === "yeast") {filter.yeast !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_yeasts.some(re => re.yeast_id == filter.yeast)))}     
+    for (const [k] of Object.entries(filter)) {
+      if(k === "style") {filter.style !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.styles[0].id === parseInt(filter.style)))}
+      if(k === "fermentable") {filter.fermentable !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_fermentables.some(re => re.fermentable_id === parseInt(filter.fermentable))))}
+      if(k === "hop") {filter.hop !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_hops.some(re => re.hop_id === parseInt(filter.hop))))}
+      if(k === "yeast") {filter.yeast !== "All" && (filteredRecipeList = filteredRecipeList.filter(r => r.recipe_yeasts.some(re => re.yeast_id === parseInt(filter.yeast))))}     
     }
     switch (e) {
       case "oldest":
@@ -55,6 +55,11 @@ const AllRecipes = () => {
         const sortedRated = filteredRecipeList.sort((a,b) => b.average_rating - a.average_rating)  
         setFilteredRecipes(sortedRated)
         setCurrentRecipes(sortedRated.slice(indexOfFirstPost, indexOfLastPost))
+        break;
+      case "abv":
+        const sortedAbv = filteredRecipeList.sort((a,b) => b.abv - a.abv)  
+        setFilteredRecipes(sortedAbv)
+        setCurrentRecipes(sortedAbv.slice(indexOfFirstPost, indexOfLastPost))
         break;
       case "recent":
         const sortedRecent = filteredRecipeList.sort((a,b) => Date.parse(b.created_at) - Date.parse(a.created_at))

@@ -8,17 +8,16 @@ const HopsList = ({id}) => {
   const [selectedIngredient, setSelectedIngredient] = useState()
 
   useEffect(() => {
+    const fetchDetails = () => {
+      fetch("https://brewkeeper-api.herokuapp.com/fermentables")
+      .then(res => res.json())
+      .then(data => {
+        setFermentables(data)
+        setSelectedIngredient(data[id])
+      })
+    }
     fetchDetails()
   }, [])
-
-  const fetchDetails = () => {
-    fetch("https://brewkeeper-api.herokuapp.com/fermentables")
-    .then(res => res.json())
-    .then(data => {
-      setFermentables(data)
-      setSelectedIngredient(data[id])
-    })
-  }
 
   return (
     <Container>

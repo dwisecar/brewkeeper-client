@@ -5,7 +5,7 @@ const Stats = ({recipe}) => {
 
   return (
     <div className="recipe-stats">
-      <h5>Estimated Stats</h5>
+      <h5>Batch Size: {recipe.volume} Gallons</h5><br></br>
       <p>OG: {recipe.og}</p>
       <p>FG: {recipe.fg}</p>
       <p>ABV: {recipe.abv}%</p>

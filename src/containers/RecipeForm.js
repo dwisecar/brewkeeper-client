@@ -61,6 +61,7 @@ function RecipeForm(){
     for (const f of selectedFermentables) {
       let fermentable = fermentables.find(fer => fer.id == f.id)
       if(!fermentable){fermentable = fermentables.find(fer => fer.name == "2-Row Pale Malt")}
+      if(!f.amount){f.amount = 0}
       fermentable = {...fermentable, amount: f.amount}
         chosenFermentables = [...chosenFermentables, fermentable]
       }
@@ -106,6 +107,8 @@ function RecipeForm(){
       if(h.boilAddition){
         let hop = hops.find(herp => herp.id == h.id)
         if (!hop){hop = hops.find(h => h.name === "Admiral")}
+        if(!h.amount){h.amount = 0}
+        if(!h.additionTime){h.additionTime = 0}
         hop = {
           ...hop, 
           amount: parseFloat(h.amount), 
@@ -189,7 +192,7 @@ function RecipeForm(){
               <Form.Group as={Col} controlId="formBasicStyles">
                 <Form.Label>Style</Form.Label>
                 <Form.Control as="select" name="style" onChange={(e) => setSelectedStyle({id: e.target.value})}>
-                  {styles.map(style => <option value={style.id}>{style.name}</option>)}
+                  {styles.map(style => <option key={style.id} value={style.id}>{style.name}</option>)}
                 </Form.Control>
               </Form.Group>
 
