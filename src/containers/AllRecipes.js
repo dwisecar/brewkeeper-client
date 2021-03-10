@@ -12,7 +12,7 @@ const AllRecipes = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([])
   const [sort, setSort] = useState("recent")
  
-  //pagination hooks
+  //pagination hooks 
   const [recipesPerPage, setRecipesPerPage] = useState(12)
   const [currentPage, setCurrentPage] = useState(1)
   const [currentRecipes, setCurrentRecipes] = useState([])
@@ -27,6 +27,7 @@ const AllRecipes = () => {
     filterizer(sort)
   }, [filter, recipes])
 
+  //the filter hook is an object with 4 key-value pairs, the filter is set here
   function handleFilter(e, type) {
     setFilter({
       ...filter,
@@ -34,6 +35,7 @@ const AllRecipes = () => {
     })
   }
 
+  //the sort hook is set here and will be one of 4 strings determined from a select input
   function handleSort(e) {
     setSort(e.target.value)
     filterizer(e.target.value)
@@ -77,7 +79,7 @@ const AllRecipes = () => {
       
     }, 500);
   }
-
+ 
   //pagination functions
   const paginate = pageNum => setCurrentPage(pageNum)
   const nextPage = () => setCurrentPage(currentPage + 1)

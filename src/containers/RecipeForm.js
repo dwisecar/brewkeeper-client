@@ -50,10 +50,11 @@ function RecipeForm(){
 
   let history = useHistory();
 
+  //is called when ingredient changes, begins by calculating original gravity
   const updateStats = () => {
     setTimeout(() => {
       calculateOG(selectedFermentables, selectedYeasts)
-    }, 1000); 
+    }, 500); 
   }
 
   const calculateOG = (selectedFermentables, selectedYeasts) => {

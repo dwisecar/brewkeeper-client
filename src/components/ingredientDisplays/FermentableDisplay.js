@@ -1,8 +1,6 @@
 import React from 'react'
 
-
 const FermentableDisplay = ({item}) => {
-
   return (
     <div className='item-display-container'>
       <h3>{item.name}</h3>

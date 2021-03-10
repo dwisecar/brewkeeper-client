@@ -6,6 +6,7 @@ const EditNotesModal = (props) => {
 
   const [newNotes, setNewNotes] = useState("")
 
+  //sends patch request to recipe notes and update the state of display notes
   const patchNotes = (e) => {
     e.preventDefault()
     const form = e.target

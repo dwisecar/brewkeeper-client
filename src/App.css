@@ -53,10 +53,15 @@ body {
   font-weight: bold;
 }
 
+.sidebar-header img{
+  height: 38px;
+  margin-bottom: 7px;
+}
+
 .brewkeeper-logo {
   text-decoration: none;
   color: bisque;
-  font-size: 24pt;
+  font-size: 20pt;
 }
 
 .brewkeeper-logo:hover {
@@ -66,6 +71,10 @@ body {
 
 .sidebar-link{
   font-size: 14pt;
+}
+
+.pro-item-content{
+  font-size:14pt;
 }
 
 .sidebar-btn-wrapper a{

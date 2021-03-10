@@ -15,12 +15,12 @@ const RecipeCard = ({recipe}) => {
   const style = recipe.styles.map(style => style.name)
   const [beerImg, setBeerImg] = useState()
   
+  //sets the image for this card's recipe style
   useEffect(() => {
     beerImage(recipe.styles.map(style => style.image)[0])
   }, [recipe])
 
   const beerImage = (img) => {
-
     switch (img) {
       case "brown":
         setBeerImg(brown);

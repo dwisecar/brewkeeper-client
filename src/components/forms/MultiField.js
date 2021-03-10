@@ -8,7 +8,8 @@ function MultiField({
   handleChange, 
   handleAmountChange}) 
   {
-
+    
+//function that returns an array of the options for the select input. react-select requires {label, value} format
   const options = items => {
     let arr = []
     items.forEach(element => {

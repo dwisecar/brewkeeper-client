@@ -15,6 +15,7 @@ const BioForm = (props) => {
     setUsernameText(user.username)
   }, [user])
 
+  //will send request to patch username and bio and then dispatch to user redux to update the user state
   const patchProfile = (e) => {
     e.preventDefault()  
     const form = e.target

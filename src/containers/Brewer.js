@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react'
-import {Container, CardDeck} from "react-bootstrap";
+import {Container, CardDeck, Spinner} from "react-bootstrap";
 import RecipeCard from '../components/RecipeCard';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux'; 
 
 const Brewer = ({brewerId}) => {
 
   const recipes = useSelector(state => state.recipes)
-  const [brewer, setBrewer] = useState({})
-
+  const [brewer, setBrewer] = useState(null)
+  
   useEffect(() => {
-    fetch(`https://brewkeeper-api.herokuapp.com/api/v1/brewers/${brewerId}`)
-      .then(res => res.json())
-      .then(data => setBrewer(data))   
+    fetchBrewer(brewerId)
   }, [])
 
-  return(
+  const fetchBrewer = id => {
+    fetch(`https://brewkeeper-api.herokuapp.com/api/v1/brewers/${id}`)
+    .then(res => res.json())
+    .then(data => setBrewer(data))  
+  }
 
+  return brewer ? (
       <Container className="user-profile">
         <h3>{brewer.username}</h3>
         {<><h5>Bio</h5><p>{brewer.bio}</p></>}<br></br>
@@ -25,8 +28,7 @@ const Brewer = ({brewerId}) => {
           .map((recipe, idx) => <RecipeCard key={idx} recipe={recipe}/>)}
         </CardDeck>
       </Container>
-
-  )
+  ) : (<Container> <Spinner animation="border" variant="secondary" /> </Container>)
 }
 
 
