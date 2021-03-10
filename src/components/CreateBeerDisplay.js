@@ -3,6 +3,7 @@ import pale from '../assets/images/pale-beer.png'
 
 const CreateBeerDisplay = ({srm}) => {
 
+  //hexcodes for all 30 °L colors
   const hex = [
     "#F3F993",
     "#F5F75C",
@@ -36,6 +37,7 @@ const CreateBeerDisplay = ({srm}) => {
     "#050B0A"
   ]
 
+  //returns the corresponding hex code for the srm value passed in
   const beerColor = (esrm) => {
     let lovibond = esrm - 1
     if(lovibond < 0) {lovibond = 0}
@@ -43,7 +45,7 @@ const CreateBeerDisplay = ({srm}) => {
     return hex[lovibond]
   }
 
-  
+  //svg filled in with color depending on the srm prop that gets passed in. This changes the color of the beer example.
   return (
     <div className="create-beer-display">
       <div className="beer-image-overlays">

@@ -4,7 +4,8 @@ export const initialState = {
 	styles:[],
 	fermentables: [],
 	hops: [],
-	yeasts: []
+	yeasts: [],
+	brewers: []
 };
 
 export const reducer = (state, action) => {
@@ -68,6 +69,11 @@ export const reducer = (state, action) => {
 			return {
 				...state,
 				yeasts: action.value
+			};
+		case 'SET_BREWERS':
+			return {
+				...state,
+				brewers: action.value
 			};
 		
 		default:

@@ -6,6 +6,7 @@ const ReviewForm = (props) => {
 
   const [newReview, setNewReview] = useState("")
 
+  //checks if this user has already reviewed this recipe and posts or patches accordingly
   const handleSubmit = e => {
     e.preventDefault()
     props.reviewToEdit ? patchReview(e) : postReview(e)

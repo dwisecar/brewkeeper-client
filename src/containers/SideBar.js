@@ -10,6 +10,7 @@ import 'react-pro-sidebar/dist/css/styles.css';
 import { connect, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Icon from '@material-ui/core/Icon';
+import tinyHop from '../assets/images/tiny-hop-icon.png'
 
 const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
 
@@ -24,44 +25,45 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
       onToggle={handleToggleSidebar}
     >
       <SidebarHeader className="sidebar-header">
-        <Link to="/" className="brewkeeper-logo" >BrewKeeper</Link>
+        <img src={tinyHop} alt="hop-icon"></img>
+        <Link to="/" className="brewkeeper-logo" > BrewKeeper </Link> 
       </SidebarHeader>
 
       <SidebarContent>
         <Menu iconShape="circle">
           <MenuItem icon={null}>
-            <Link to="/" className="sidebar-link">RECIPES</Link>
+            <Link to="/" className="sidebar-link">Recipes</Link>
           </MenuItem>
         </Menu>
 
         {user && 
         <><Menu>
           <MenuItem icon={null}>
-            <Link to="/recipes/new" className="sidebar-link">CREATE A RECIPE</Link>
+            <Link to="/recipes/new" className="sidebar-link">Create a Recipe</Link>
           </MenuItem>
         </Menu>
         <Menu>
           <MenuItem icon={null}>
-            <Link to="/profile" className="sidebar-link">PROFILE</Link>
+            <Link to="/profile" className="sidebar-link">Profile</Link>
           </MenuItem>
         </Menu></>}
 
         <Menu>
           <MenuItem icon={null}>
-            <Link to="/brewers" className="sidebar-link">BREWERS</Link>
+            <Link to="/brewers" className="sidebar-link">Brewers</Link>
             </MenuItem>
         </Menu>
 
         <Menu>
           <MenuItem icon={null}>
-            <Link to="/styles" className="sidebar-link">STYLES</Link>
+            <Link to="/styles" className="sidebar-link">Styles</Link>
             </MenuItem>
         </Menu>
         
         <Menu iconShape="circle" >
           <SubMenu
             
-            title={"INGREDIENTS"}
+            title={"Ingredients"}
             icon={null}
           >
             <MenuItem><Link to="/fermentables">Fermentables</Link></MenuItem>
@@ -75,10 +77,9 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
         <div
           className="sidebar-btn-wrapper"
           style={{
-            padding: '10px 14px',
+            padding: '14px 14px',
           }}
         >by Dave Wisecarver 
-          <br></br>
           <a href="https://github.com/dwisecar">
             <Icon className="fa fa-github"></Icon>
           </a><span> </span>

@@ -16,23 +16,14 @@ import HopsList from './styles-ingredients/HopsList';
 import YeastsList from './styles-ingredients/YeastsList';
 import Icon from '@material-ui/core/Icon';
 
-const MainContainer = ({ 
-  collapsed,
-  rtl,
-  image,
-  handleToggleSidebar,
-  handleCollapsedChange,
-  handleRtlChange,
-  handleImageChange,}) => {
+const MainContainer = () => {
 
   const recipes = useSelector(state => state.recipes)
   const styles = useSelector(state => state.styles)
   const fermentables = useSelector(state => state.fermentables)
   const hops = useSelector(state => state.hops)
   const yeasts = useSelector(state => state.yeasts)
-
-
-  const [brewers, setBrewers] = useState([])
+  const brewers = useSelector(state => state.brewers)
 
     return(
         <div className='main'>
@@ -44,7 +35,7 @@ const MainContainer = ({
                 />)}
               />
               <Route path="/profile" component={Profile}/> 
-              <Route exact path="/brewers" render={() => <Brewers brewers={brewers} setBrewers={setBrewers}/>}/>
+              <Route exact path="/brewers" component={Brewers}/>
               
               <Route exact path="/styles" component={StylesList}/>
               <Route path="/styles/:slug" render={(routerProps) => {
@@ -80,7 +71,7 @@ const MainContainer = ({
 
               <Route path="/brewers/:slug" render={(routerProps) => {
                 let brewer = brewers.find(brewer => brewer.id === parseInt(routerProps.match.params.slug))
-                return <Brewer brewerId={brewer.id}/>
+                return (brewer ? <Brewer brewerId={brewer.id}/> : null )
               }}/>
 
               <Route exact path="/signout" />
@@ -98,7 +89,8 @@ const mapStateToProps = state => {
     styles: state.styles,
     fermentables: state.fermentables,
     hops: state.hops,
-    yeasts: state.yeasts
+    yeasts: state.yeasts,
+    brewers: state.brewers
   }
 }
 export default connect(mapStateToProps)(MainContainer)

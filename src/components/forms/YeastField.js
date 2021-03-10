@@ -9,10 +9,11 @@ function YeastField({
   handleAmountChange}) 
   {
 
+  //function that returns an array of the options for the select input. react-select requires {label, value} format
   const options = items => {
     let arr = []
     items.forEach(element => {
-      arr = [...arr, {label: element.name, value: element.id}]
+      arr = [...arr, {label: `${element.name} | Attenuation: ${element.attenuation_min}% - ${element.attenuation_max}%`, value: element.id}]
     });
     return arr
   }

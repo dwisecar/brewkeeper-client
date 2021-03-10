@@ -15,12 +15,13 @@ const RatingForm = ({user, recipe, ratings, setRatings}) => {
   const [previousRating, setPreviousRating] = useState({})
   const [hover, setHover] = useState(-1);
 
+  //when a user changes a recipe's ratings state, this will handle it and flip the user has rated state to true 
   useEffect(() => {
     const userRating = ratings.filter(rating => rating.user_id === user.id) 
-    userRating.length !== 0 ? handleUserPrevRating(userRating) : setUserHasRated(false)
-    
+    userRating.length !== 0 ? handleUserPrevRating(userRating) : setUserHasRated(false) 
   }, [ratings])
 
+  //will note that a user has made a rating and if they change it, it should be a patch instead of post
   const handleUserPrevRating = rating => {
     setUserHasRated(true)
     setRating(rating[0].stars)
@@ -73,10 +74,12 @@ const RatingForm = ({user, recipe, ratings, setRatings}) => {
     
   }  
 
+  //checks for if the user has rated this recipe before and whether to post or patch the rating
   const setSliderRating = e => {
     !userHasRated ? postRating(e.target.value) : patchRating(e.target.value)
   }
 
+  //setting styles for custom ratings slider
   const useStyles = makeStyles({
     root: {
       width: 200,
@@ -87,6 +90,7 @@ const RatingForm = ({user, recipe, ratings, setRatings}) => {
 
   const classes = useStyles()
 
+  //setting all ten icons to the beverage icon instead of stars default
   const customIcons = {
     1: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
     2: {icon: <LocalDrinkIcon/>, label: "Hop Image" },
@@ -100,6 +104,7 @@ const RatingForm = ({user, recipe, ratings, setRatings}) => {
     10: {icon: <LocalDrinkIcon/>, label: "Hop Image" }
   }
 
+  
   function IconContainer(props) {
     const { value, ...other } = props;
     return <span {...other}>{customIcons[value].icon}</span>;

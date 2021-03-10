@@ -1,9 +1,9 @@
 import { Button, Container, Row, Col } from 'react-bootstrap'
-import React, { useState } from 'react'
-
+import React from 'react'
 
 const Reviews = ({reviews, user, setReviews, setReviewToEdit, handleEditClick}) => {
 
+  //will set reviews state to all except the one being deleted, then sends request to server to delete
   const handleDelete = review => {
     setReviews(prevReviews => prevReviews.filter(rev => rev.id !== review.id))
 

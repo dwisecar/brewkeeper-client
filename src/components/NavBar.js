@@ -5,11 +5,8 @@ import { useHistory } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import LogInModal from './LogInModal'
 
-const NavBar = ({
-  signIn,
-  signUp,
-  signOut,
-}) => {
+const NavBar = ({signIn, signUp, signOut}) => {
+
   let history = useHistory();
   const user = useSelector(state => state.user)
 
@@ -19,7 +16,6 @@ const NavBar = ({
   return (
     <>
     <Navbar className="navbar shadow" expand="lg" fixed="top" variant="dark">
-    
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">

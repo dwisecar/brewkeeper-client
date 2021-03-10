@@ -10,27 +10,8 @@ function Layout() {
 
   useEffect(() => {
     const token = localStorage.token
-    token ? persistUser(token) : fetchRecipes()
+    token && persistUser(token) 
   }, [])
-
-  const fetchRecipes = () => {
-    fetch("https://brewkeeper-api.herokuapp.com/recipes")
-    .then(res => res.json())
-    .then(data => (
-      dispatch({
-        type: "SET_RECIPES",
-        value: data
-      }),
-      fetchDetails()
-    ))
-  }
-
-  const fetchDetails = () => {
-    fetch("https://brewkeeper-api.herokuapp.com/styles").then(res => res.json()).then(data1 => dispatch({type: "SET_STYLES", value: data1}))
-    .then(fetch("https://brewkeeper-api.herokuapp.com/fermentables").then(res => res.json()).then(data2 => dispatch({type: "SET_FERMENTABLES", value: data2}))
-    .then(fetch("https://brewkeeper-api.herokuapp.com/hops").then(res => res.json()).then(data3 => dispatch({type: "SET_HOPS", value: data3}))
-    .then(fetch("https://brewkeeper-api.herokuapp.com/yeasts").then(res => res.json()).then(data4 => dispatch({type: "SET_YEASTS", value: data4})))))
-  }
 
   const userSignIn = (e) => {
     e.preventDefault();
@@ -56,7 +37,6 @@ function Layout() {
             value: data.user
           })
           form.reset()
-          fetchRecipes()
           localStorage.setItem("token", data.jwt)
         }
       })
@@ -85,7 +65,6 @@ function Layout() {
             value: data.user
           })
           form.reset()
-          fetchRecipes()
           localStorage.setItem("token", data.jwt)
         }
       })
@@ -105,7 +84,6 @@ function Layout() {
           type: "CHANGE_USER",
           value: data
         })
-        fetchRecipes()
       }
     )
   }

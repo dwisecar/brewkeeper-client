@@ -5,6 +5,7 @@ import hops from '../assets/images/hops-bar.png'
 
 const BrewerCard = ({brewer}) => {
 
+  //converts the postgres timestamp to MM/DD/YYYY
   const brewerCreatedDate = date => {
     const fullDate =  Date(date.replace(' ', 'T')).split(' ')
     return `${fullDate[1]} ${fullDate[2]}, ${fullDate[3]}`

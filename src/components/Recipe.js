@@ -1,4 +1,4 @@
-import { Button, Container, Row, Col, OverlayTrigger, Popover } from 'react-bootstrap'
+import { Button, Container, Row, Col, OverlayTrigger, Popover, Spinner } from 'react-bootstrap'
 import React, { useEffect, useState } from 'react'
 import RatingForm from './forms/RatingForm'
 import ReviewForm from './forms/ReviewForm'
@@ -16,7 +16,7 @@ import stout from '../assets/images/stout.png'
 import { LinkContainer } from 'react-router-bootstrap'
 import EditNotesModal from './forms/EditNotesModal'
 
-const Recipe = ({recipeId}) => {
+const Recipe = ({recipeId}) => { 
 
   const dispatch = useDispatch()
   const user = useSelector(state => state.user)
@@ -36,6 +36,7 @@ const Recipe = ({recipeId}) => {
     fetchRecipe(recipeId)
   }, [])
 
+  //fetch recipes on mount and set states for recipe, ratings, reviews, notes, and set the beer image for that style of beer 
   const fetchRecipe = id => {
     fetch(`https://brewkeeper-api.herokuapp.com/recipes/${id}`)
     .then(res => res.json())
@@ -48,8 +49,8 @@ const Recipe = ({recipeId}) => {
     })
   }
 
+  //sets the beer image to what the style of beer is
   const beerImage = (img) => {
-
     switch (img) {
       case "brown":
         setBeerImg(brown);
@@ -78,6 +79,7 @@ const Recipe = ({recipeId}) => {
     }
   }
 
+  //returns the forms to leave rating and review if the user is logged in
   const ratingAndReviewForms = () => {
     return(
       <>
@@ -88,10 +90,12 @@ const Recipe = ({recipeId}) => {
     )
   }
 
+  //adds review to reviews state 
   const addReview = (review) => { 
     setReviews(prevReviews => [...prevReviews, review])
   }
 
+  //splices in the updated review to state
   const editReview = review => {
     let index = reviews.findIndex(r => r.id === review.id)
     let newReviews = reviews
@@ -104,10 +108,12 @@ const Recipe = ({recipeId}) => {
     setModalShow(true)
   }
 
+  //determines the average rating based on ratings state array
   let avgRating = () => {    
     return (ratings.map(r => r.stars).reduce((acc, i) => acc + i) / ratings.length).toFixed(2) 
   }
 
+  //will send request to delete recipe and update redux state of all recipes
   const handleDelete = () => {   
     fetch(`https://brewkeeper-api.herokuapp.com/recipes/${recipe.id}`, {
       method: "DELETE", 
@@ -234,7 +240,7 @@ const Recipe = ({recipeId}) => {
       </Row>
       </Container>
   )
-   : (<div>Loading</div>)
+   : (<Container> <Spinner animation="border" variant="secondary" /> </Container>)
 }
 
 const mapStateToProps = state => {
