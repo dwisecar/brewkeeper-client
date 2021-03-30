@@ -128,6 +128,11 @@ const Recipe = ({recipeId}) => {
     }))
     .then(history.push("/"))
   }
+
+  //tooltip prompt to log in
+  const renderTooltip = (props) => (
+    <Popover className="ingredient-tooltip" {...props}>Must be logged in to leave a review.</Popover>
+  )
   
   return recipe ? (
     <Container className="recipe-page">
@@ -233,11 +238,13 @@ const Recipe = ({recipeId}) => {
             <Reviews reviews={reviews} user={user} setReviews={setReviews} setReviewToEdit={setReviewToEdit} handleEditClick={handleReviewEditClick}/>
             <br></br>
             { user !== false && recipe.user_id !== user.id && ratingAndReviewForms()}
-
+            
             <ReviewForm show={modalShow} onHide={() => setModalShow(false)} recipe={recipe} user={user} addReview={addReview} reviewToEdit={reviewToEdit} editReview={editReview} reviews={reviews}/>
-            <EditNotesModal show={showEditNotes} onHide={() => setShowEditNotes(false)} recipe={recipe} user={user} setDisplayNotes={setDisplayNotes}/>     
+            <EditNotesModal show={showEditNotes} onHide={() => setShowEditNotes(false)} recipe={recipe} user={user} setDisplayNotes={setDisplayNotes}/>  
+             
         </Col>
       </Row>
+      { !user && <h4>Log in to leave a rating and review.</h4>}  
       </Container>
   )
    : (<Container> <Spinner animation="border" variant="secondary" /> </Container>)

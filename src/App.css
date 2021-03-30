@@ -307,10 +307,6 @@ body {
   height: auto;
 }
 
-#beer-cover-shape{
-  filter: invert(1)
-}
-
 .select-input-new{
   color: black;
 }

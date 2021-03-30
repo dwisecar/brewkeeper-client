@@ -11,10 +11,16 @@ import { connect, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Icon from '@material-ui/core/Icon';
 import tinyHop from '../assets/images/tiny-hop-icon.png'
+import { OverlayTrigger, Tooltip, Popover } from 'react-bootstrap';
+
 
 const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
 
   const user = useSelector(state => state.user)
+
+  const renderTooltip = (props) => (
+    <Popover className="ingredient-tooltip" {...props}>Must be logged in first!</Popover>
+  )
 
   return(
     <ProSidebar style={{position: "fixed"}}className="sidebar-container shadow"
@@ -36,17 +42,30 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
           </MenuItem>
         </Menu>
 
-        {user && 
-        <><Menu>
+         
+        <Menu>
           <MenuItem icon={null}>
-            <Link to="/recipes/new" className="sidebar-link">Create a Recipe</Link>
+            {user ? <Link to="/recipes/new" className="sidebar-link">Create a Recipe</Link> :
+            <OverlayTrigger
+              placement="right"
+              delay={{show: 250, hide: 400}}
+              overlay={renderTooltip}>
+                <h3 className="sidebar-link">Create a Recipe</h3>
+              </OverlayTrigger>
+             }
           </MenuItem>
         </Menu>
         <Menu>
           <MenuItem icon={null}>
-            <Link to="/profile" className="sidebar-link">Profile</Link>
+            {user ? <Link to="/profile" className="sidebar-link">Profile</Link> :
+            <OverlayTrigger
+              placement="right"
+              delay={{show: 250, hide: 400}}
+              overlay={renderTooltip}>
+                <h3 className="sidebar-link" >Profile</h3>
+            </OverlayTrigger>}
           </MenuItem>
-        </Menu></>}
+        </Menu>
 
         <Menu>
           <MenuItem icon={null}>
