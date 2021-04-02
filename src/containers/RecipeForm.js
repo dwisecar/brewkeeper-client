@@ -153,9 +153,11 @@ function RecipeForm(){
       ibu: ibu,
       srm: srm
     }
+    const token = localStorage.token
     fetch("https://brewkeeper-api.herokuapp.com/recipes", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
         Accept: 'application/json'
       },

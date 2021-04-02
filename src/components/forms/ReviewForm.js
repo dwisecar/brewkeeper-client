@@ -14,9 +14,11 @@ const ReviewForm = (props) => {
 
   const postReview = (e) => {
     const form = e.target
+    const token = localStorage.token
     fetch("https://brewkeeper-api.herokuapp.com/reviews", {
       method: "POST", 
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-type": "application/json",
         Accept: "application/json"
       },

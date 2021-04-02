@@ -30,10 +30,12 @@ const RatingForm = ({user, recipe, ratings, setRatings}) => {
 
   const postRating = (val) => {
     setUserHasRated(true)
+    const token = localStorage.token
     setTimeout(() => {
       fetch("https://brewkeeper-api.herokuapp.com/ratings", {
         method: "POST", 
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-type": "application/json",
           Accept: "application/json"
         },

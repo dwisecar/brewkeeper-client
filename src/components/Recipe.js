@@ -115,9 +115,11 @@ const Recipe = ({recipeId}) => {
 
   //will send request to delete recipe and update redux state of all recipes
   const handleDelete = () => {   
+    const token = localStorage.token
     fetch(`https://brewkeeper-api.herokuapp.com/recipes/${recipe.id}`, {
       method: "DELETE", 
-      headers: {
+      headers: {      
+        Authorization: `Bearer ${token}`,
         "Content-type": "application/json",
         Accept: "application/json"
       }

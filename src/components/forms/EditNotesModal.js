@@ -10,9 +10,11 @@ const EditNotesModal = (props) => {
   const patchNotes = (e) => {
     e.preventDefault()
     const form = e.target
+    const token = localStorage.token
     fetch(`https://brewkeeper-api.herokuapp.com/recipes/${props.recipe.id}`, {
       method: "PATCH", 
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-type": "application/json",
         Accept: "application/json"
       },
