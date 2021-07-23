@@ -1,0 +1,6 @@
+{
+    "domain": "dev-yzg4n3jx.us.auth0.com",
+    "clientId": "InzvKLKhOvqwu5rHr4lxf9tSPj7rMbUb",
+    "audience": "https://brewkeeper-api",
+    "scope" : "openid profile email create:recipes update:recipes delete:recipes create:reviews update:reviews delete:reviews create:rating update:rating"
+}

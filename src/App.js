@@ -5,13 +5,28 @@ import "./App.css";
 import "./Sidebar.scss";
 import { BrowserRouter } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
+import { useAuth0 } from "@auth0/auth0-react";
 
 function App() {
   const dispatch = useDispatch()
+  const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
     fetchRecipes()
-  }, [])
+    setUser()
+  }, [isAuthenticated])
+
+  const setUser = () => {
+    isAuthenticated ? dispatch({
+      type: "CHANGE_USER",
+      value: user
+    }) :
+    dispatch({
+      type: "CHANGE_USER",
+      value: false
+    }) 
+    console.log(user)
+  }
 
   const fetchRecipes = () => {
     fetch("https://brewkeeper-api.herokuapp.com/recipes")

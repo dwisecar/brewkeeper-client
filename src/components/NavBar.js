@@ -4,14 +4,15 @@ import { LinkContainer } from "react-router-bootstrap";
 import { useHistory } from "react-router-dom";
 import { connect, useSelector } from "react-redux";
 import LogInModal from './LogInModal'
+import { useAuth0 } from "@auth0/auth0-react";
 
 const NavBar = ({signIn, signUp, signOut}) => {
-
+  const { loginWithRedirect } = useAuth0();
   let history = useHistory();
   const user = useSelector(state => state.user)
 
   const [signInModalShow, setSignInModalShow] = useState(false)
-  const [signUpModalShow, setSignUpModalShow] = useState(false)
+  // const [signUpModalShow, setSignUpModalShow] = useState(false)
 
   return (
     <>
@@ -25,7 +26,7 @@ const NavBar = ({signIn, signUp, signOut}) => {
           </LinkContainer>
           {user ? (
               <LinkContainer to="/profile">
-                <Nav.Link>{user.username}'s Profile</Nav.Link>
+                <Nav.Link>{user.name}'s Profile</Nav.Link>
               </LinkContainer>) : null}
           
           {user ? (
@@ -44,8 +45,8 @@ const NavBar = ({signIn, signUp, signOut}) => {
             </>
           ) : (
             <>
-              <Nav.Link onClick={() => setSignInModalShow(true)}>Log In</Nav.Link>
-              <Nav.Link onClick={() => setSignUpModalShow(true)}>Sign Up</Nav.Link>
+              <Nav.Link onClick={() => loginWithRedirect()}>Log In</Nav.Link>
+              {/* <Nav.Link onClick={() => setSignUpModalShow(true)}>Sign Up</Nav.Link> */}
             </>
           )}
         </Nav>
@@ -53,16 +54,16 @@ const NavBar = ({signIn, signUp, signOut}) => {
         
       </Navbar.Collapse>
     </Navbar>
-    <LogInModal 
+    {/* <LogInModal 
       show={signInModalShow} 
       onHide={() => setSignInModalShow(false)} 
       signIn={signIn}
-      header={"Log In"}/>
-    <LogInModal 
+      header={"Log In"}/> */}
+    {/* <LogInModal 
       show={signUpModalShow} 
       onHide={() => setSignUpModalShow(false)} 
       signIn={signUp}
-      header={"Sign Up"}/>
+      header={"Sign Up"}/> */}
     </>
   );
 };

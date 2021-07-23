@@ -3,9 +3,10 @@ import SideBar from './SideBar'
 import MainContainer from "./MainContainer"
 import { connect, useDispatch } from 'react-redux';
 import NavBar from "../components/NavBar";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Layout() {
-  
+  const { logout } = useAuth0();
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -90,8 +91,9 @@ function Layout() {
 
   const handleLogout = () => {
     localStorage.clear();
+    logout({ returnTo: window.location.origin })
     dispatch({
-      type: "CHANGE_USER",
+      type: "CHANGE_USER", 
       value: false
     })
   }
