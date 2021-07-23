@@ -44,15 +44,19 @@ const SideBar = ({ collapsed, rtl, toggled, handleToggleSidebar }) => {
 
          
         <Menu>
-          <MenuItem icon={null}>
-            {user ? <Link to="/recipes/new" className="sidebar-link">Create a Recipe</Link> :
+          <MenuItem icon={null}> 
+
+            <Link to="/recipes/new" className="sidebar-link">Create a Recipe</Link>
+            
+            {/* {user ? <Link to="/recipes/new" className="sidebar-link">Create a Recipe</Link> :
             <OverlayTrigger
               placement="right"
               delay={{show: 250, hide: 400}}
               overlay={renderTooltip}>
                 <h3 className="sidebar-link">Create a Recipe</h3>
               </OverlayTrigger>
-             }
+             } */}
+
           </MenuItem>
         </Menu>
         <Menu>

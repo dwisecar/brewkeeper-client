@@ -15,6 +15,7 @@ import FermentablesList from './styles-ingredients/FermentablesList';
 import HopsList from './styles-ingredients/HopsList';
 import YeastsList from './styles-ingredients/YeastsList';
 import Icon from '@material-ui/core/Icon';
+import { withAuthenticationRequired } from '@auth0/auth0-react';
 
 const MainContainer = () => {
 
@@ -25,6 +26,10 @@ const MainContainer = () => {
   const yeasts = useSelector(state => state.yeasts)
   const brewers = useSelector(state => state.brewers)
 
+  const ProtectedRoute = ({ component, ...args }) => (
+    <Route component={withAuthenticationRequired(component)} {...args} />
+  );
+
     return(
         <div className='main'>
           <Container className="main-container" fluid >      
@@ -34,7 +39,7 @@ const MainContainer = () => {
                   recipes={recipes}
                 />)}
               />
-              <Route path="/profile" component={Profile}/> 
+              <ProtectedRoute path="/profile" component={Profile}/> 
               <Route exact path="/brewers" component={Brewers}/>
               
               <Route exact path="/styles" component={StylesList}/>
@@ -62,7 +67,7 @@ const MainContainer = () => {
                 return (yeast ? <YeastsList id={yeast.id} /> : null)
               }}/>
               
-              <Route path="/recipes/new" component={RecipeForm}/>
+              <ProtectedRoute path="/recipes/new" component={RecipeForm}/>
 
               <Route path="/recipes/:slug" render={(routerProps) => {
                 let recipe = recipes.find(recipe => recipe.id === parseInt(routerProps.match.params.slug))
